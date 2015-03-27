@@ -15,6 +15,7 @@ namespace Bonificacao.Data
 
         }
 
+
         public DbSet<Configuracao> Configuracoes { get; set; }
         public DbSet<Estabelecimento> Estabelecimentos { get; set; }
         public DbSet<GrupoEstabelecimento> GruposEstabelecimento { get; set; }
