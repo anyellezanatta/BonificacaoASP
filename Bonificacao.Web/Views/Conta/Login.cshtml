@@ -1,12 +1,24 @@
-﻿@{
-    ViewBag.Title = "Login";
-}
+﻿@model Bonificacao.Web.Models.LoginModel
 
-<form class="form-login" method="post">
-    <h2>Login</h2>
-    <label for="Usuario" class="sr-only">Usuário</label>
-    <input type="text" id="Usuario" name="Usuario" class="form-control" placeholder="Usuário">
-    <label for="Password" class="sr-only">Senha</label>
-    <input type="password" id="Password" name="Password" class="form-control" placeholder="Senha">
-    <button id="login" style="margin-top:10px;" class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
-</form>
+@{ViewBag.Title = "Login";}
+
+<div class="centered-box">
+    @using (Html.BeginForm("login", "conta", FormMethod.Post, new { @class = "form-login" }))
+    {
+        <h2>Login</h2>
+        @Html.LabelFor(model => model.Usuario, new { @class = "sr-only" })
+        @Html.TextBoxFor(model => model.Usuario, new { @class = "form-control", placeholder = "Usuário" })
+        @Html.LabelFor(model => model.Senha, new { @class = "sr-only" })
+        @Html.PasswordFor(model => model.Senha, new { @class = "form-control", placeholder = "Senha" })
+        <div class="form-group">
+            @Html.ValidationSummary()
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                @Html.CheckBoxFor(model => model.Lembrar, false)
+                @Html.LabelFor(model => model.Lembrar, "Mantenha-me conectado")
+            </div>
+        </div>
+        <button id="login" style="margin-top:10px;" class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+    }
+</div>

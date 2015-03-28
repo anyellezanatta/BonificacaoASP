@@ -1,0 +1,20 @@
+﻿.navbar-inverse {
+    background-color: #357ebd !important;
+    border-color: #357ebd !important;
+}
+
+    .navbar-inverse .navbar-toggle {
+        border: none;
+    }
+
+        .navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
+            background-color: #357ebd !important;
+        }
+
+    .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+        border-color: #357ebd;
+    }
+
+    .navbar-inverse .navbar-brand {
+        color: #fff;
+    }

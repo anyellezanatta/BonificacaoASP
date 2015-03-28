@@ -5,7 +5,7 @@ namespace Bonificacao.Data.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Bonificacao.Data.BonificacaoContext>
+    public sealed class Configuration : DbMigrationsConfiguration<Bonificacao.Data.BonificacaoContext>
     {
         public Configuration()
         {
