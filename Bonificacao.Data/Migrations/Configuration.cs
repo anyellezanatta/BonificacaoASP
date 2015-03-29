@@ -1,5 +1,6 @@
 namespace Bonificacao.Data.Migrations
 {
+    using Bonificacao.Data.Utils;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -14,18 +15,11 @@ namespace Bonificacao.Data.Migrations
 
         protected override void Seed(Bonificacao.Data.BonificacaoContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            context.Pessoas.AddOrUpdate(
+              p => p.Usuario,
+              new Pessoa() { Usuario = "anyelle.ad@gmail.com", Nome = "Anyelle", Senha = SHA256Generator.GetHash("123456@"), Tipo = TipoPessoa.Administrador }
+            );
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
         }
     }
 }

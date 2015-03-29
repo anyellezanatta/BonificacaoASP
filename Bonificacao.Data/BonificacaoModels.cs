@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,8 @@ namespace Bonificacao.Data
 {
     public interface IChangeTracker
     {
-        DateTime DataCriacao { get; set; }
-        DateTime? DataModificacao { get; set; }
+        DateTimeOffset DataCriacao { get; set; }
+        DateTimeOffset? DataModificacao { get; set; }
     }
 
     public enum TipoMovimento { RecebimentoBonus = 1, DescontoBonus = 2, Ajustes = 3 }
@@ -19,8 +20,8 @@ namespace Bonificacao.Data
     public class EntityBase : IChangeTracker
     {
         public int Id { get; set; }
-        public DateTime DataCriacao { get; set; }
-        public DateTime? DataModificacao { get; set; }
+        public DateTimeOffset DataCriacao { get; set; }
+        public DateTimeOffset? DataModificacao { get; set; }
     }
 
     public class Configuracao : EntityBase
@@ -47,6 +48,8 @@ namespace Bonificacao.Data
     {
         public TipoPessoa Tipo { get; set; }
         public string Nome { get; set; }
+
+        [Index(IsUnique = true)]
         public string Usuario { get; set; }
         public string Senha { get; set; } //salvar usando alguma criptografia
         public virtual ICollection<Indicacao> Indicacoes { get; set; }
@@ -60,8 +63,8 @@ namespace Bonificacao.Data
         public int PessoaIndicadaId { get; set; }
         public virtual Pessoa PessoaOrigem { get; set; }
         public virtual Pessoa PessoaIndicada { get; set; }
-        public DateTime DataCriacao { get; set; }
-        public DateTime? DataModificacao { get; set; }
+        public DateTimeOffset DataCriacao { get; set; }
+        public DateTimeOffset? DataModificacao { get; set; }
     }
 
     public class Produto : EntityBase
@@ -81,7 +84,7 @@ namespace Bonificacao.Data
         public decimal? Debito { get; set; }
         public decimal? Credito { get; set; }
         public decimal ValorPago { get; set; }
-        public DateTime DataHoraMovimento { get; set; }
+        public DateTimeOffset DataHoraMovimento { get; set; }
         public virtual Pessoa Cliente { get; set; }
         public virtual Estabelecimento Estabelecimento { get; set; }
         public virtual Pessoa Frentista { get; set; }
