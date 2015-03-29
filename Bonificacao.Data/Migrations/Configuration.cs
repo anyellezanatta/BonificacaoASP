@@ -15,11 +15,17 @@ namespace Bonificacao.Data.Migrations
 
         protected override void Seed(Bonificacao.Data.BonificacaoContext context)
         {
-            context.Pessoas.AddOrUpdate(
-              p => p.Usuario,
-              new Pessoa() { Usuario = "anyelle.ad@gmail.com", Nome = "Anyelle", Senha = SHA256Generator.GetHash("123456@"), Tipo = TipoPessoa.Administrador }
-            );
-
+            if (!context.Pessoas.Any())
+            {
+                context.Pessoas.Add(
+                    new Pessoa()
+                    {
+                        Usuario = "anyelle.ad@gmail.com",
+                        Nome = "Anyelle",
+                        Senha = SHA256Generator.GetHash("123456@"),
+                        Tipo = TipoPessoa.Administrador
+                    });
+            }
         }
     }
 }
