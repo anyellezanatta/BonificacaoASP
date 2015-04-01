@@ -112,6 +112,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ContaController.cs" />
+    <Compile Include="Controllers\GruposEstabelecimentoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
     <Compile Include="Global.asax.cs">
@@ -134,6 +135,10 @@
     <Content Include="Views\Produtos\Deletar.cshtml" />
     <Content Include="Views\Produtos\Editar.cshtml" />
     <Content Include="Views\Produtos\Index.cshtml" />
+    <Content Include="Views\GruposEstabelecimento\Cadastrar.cshtml" />
+    <Content Include="Views\GruposEstabelecimento\Deletar.cshtml" />
+    <Content Include="Views\GruposEstabelecimento\Editar.cshtml" />
+    <Content Include="Views\GruposEstabelecimento\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -144,7 +149,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Utils\" />
-    <Folder Include="Views\Produto\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bonificacao.Data\Bonificacao.Data.csproj">

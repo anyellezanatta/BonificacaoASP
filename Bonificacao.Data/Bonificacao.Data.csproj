@@ -60,6 +60,10 @@
     <Compile Include="Migrations\201503290045570_IndiceUnicoUsuario.Designer.cs">
       <DependentUpon>201503290045570_IndiceUnicoUsuario.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504010206470_AlteradoTipoCampoNome.cs" />
+    <Compile Include="Migrations\201504010206470_AlteradoTipoCampoNome.Designer.cs">
+      <DependentUpon>201504010206470_AlteradoTipoCampoNome.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\SHA256Generator.cs" />
@@ -77,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503290045570_IndiceUnicoUsuario.resx">
       <DependentUpon>201503290045570_IndiceUnicoUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504010206470_AlteradoTipoCampoNome.resx">
+      <DependentUpon>201504010206470_AlteradoTipoCampoNome.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

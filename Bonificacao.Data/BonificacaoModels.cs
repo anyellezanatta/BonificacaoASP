@@ -41,7 +41,7 @@ namespace Bonificacao.Data
 
     public class GrupoEstabelecimento : EntityBase
     {
-        public int Nome { get; set; }
+        public string Nome { get; set; }
         public virtual ICollection<Estabelecimento> Estabelecimentos { get; set; }
     }
 
