@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -51,7 +52,7 @@ namespace Bonificacao.Data
 
         [Index(IsUnique = true)]
         public string Usuario { get; set; }
-        public string Senha { get; set; } //salvar usando alguma criptografia
+        public string Senha { get; set; }
         public virtual ICollection<Indicacao> Indicacoes { get; set; }
         public virtual ICollection<Indicacao> IndicadoPor { get; set; }
         public virtual ICollection<Movimento> Movimentos { get; set; }
@@ -70,6 +71,9 @@ namespace Bonificacao.Data
     public class Produto : EntityBase
     {
         public string Nome { get; set; }
+
+        [Display(Name = "Preço")]
+        [DisplayFormat(DataFormatString = "{0:c2}")]
         public decimal Preco { get; set; }
         public virtual ICollection<Movimento> Movimentos { get; set; }
     }

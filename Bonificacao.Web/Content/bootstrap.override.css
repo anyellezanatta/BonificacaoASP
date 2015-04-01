@@ -18,3 +18,33 @@
     .navbar-inverse .navbar-brand {
         color: #fff;
     }
+
+    .navbar-inverse .navbar-text {
+        color: #fff;
+    }
+
+    .navbar-inverse .navbar-nav > li > a {
+        color: #dedede;
+    }
+
+    .navbar-inverse .navbar-text > a > span {
+        color: #fff !important;
+    }
+
+    /*.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+        color: #dedede;
+    }*/
+
+    .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+        color: #fff;
+        background-color: #2F74B8;
+    }
+
+.navbar-link {
+    color: #fff !important;
+}
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+    color: #fff;
+    background-color: #2F74B8;
+}

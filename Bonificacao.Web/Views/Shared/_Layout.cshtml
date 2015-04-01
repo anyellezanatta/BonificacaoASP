@@ -22,7 +22,22 @@
                     @Html.ActionLink("Bonificação", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
                 <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav"></ul>
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Cadastro <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>@Html.ActionLink("Estabelecimentos", "Index", "Estabelecimentos")</li>
+                                <li>@Html.ActionLink("Grupos de estabelecimentos", "Index", "GruposEstabelecimento")</li>
+                                <li>@Html.ActionLink("Produtos", "Index", "Produtos")</li>
+                                <li>@Html.ActionLink("Usuários", "Index", "Conta")</li>
+                            </ul>
+                        </li>
+                        <li>@Html.ActionLink("Configurações", "Editar", "Configuracoes")</li>
+                        @*<li><a href="#">Configurações</a></li> @*class="active"*@
+                    </ul>
+
+                    @*<p class="navbar-text navbar-right"><a href="#"><span style="font-size: 18px;" class="glyphicon glyphicon-cog" aria-hidden="true"></span></a></p>*@
+                    <p class="navbar-text navbar-right">@Html.ActionLink("logout", "Logout", "Conta", null, new { @class = "navbar-link" })</p>
                 </div>
             </div>
         </div>
