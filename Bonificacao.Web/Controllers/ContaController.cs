@@ -52,13 +52,12 @@ namespace Bonificacao.Web.Controllers
         }
 
         // GET: Conta/Cadastro
-        public ActionResult Cadastro()
+        public ActionResult Cadastro(string email = null)
         {
-            var email = User.Identity.Name;
-            var usuario = db.Pessoas.FirstOrDefault(e => e.Usuario == email);
+            var usuario = db.Pessoas.FirstOrDefault(e => e.Usuario == User.Identity.Name);
             ViewBag.Administrador = (usuario != null && usuario.Tipo == TipoPessoa.Administrador);
 
-            return View();
+            return View(new CadastroModel() { Email = email });
         }
 
         // POST: Conta/Cadastro

@@ -49,21 +49,18 @@ namespace Bonificacao.Data
     {
         public TipoPessoa Tipo { get; set; }
         public string Nome { get; set; }
-
         [Index(IsUnique = true)]
         public string Usuario { get; set; }
         public string Senha { get; set; }
         public virtual ICollection<Indicacao> Indicacoes { get; set; }
-        public virtual ICollection<Indicacao> IndicadoPor { get; set; }
         public virtual ICollection<Movimento> Movimentos { get; set; }
     }
 
     public class Indicacao : IChangeTracker
     {
-        public int PessoaOrigemId { get; set; }
-        public int PessoaIndicadaId { get; set; }
-        public virtual Pessoa PessoaOrigem { get; set; }
-        public virtual Pessoa PessoaIndicada { get; set; }
+        public int PessoaId { get; set; }
+        public virtual Pessoa Pessoa { get; set; }
+        public string EmailDestino { get; set; }
         public DateTimeOffset DataCriacao { get; set; }
         public DateTimeOffset? DataModificacao { get; set; }
     }

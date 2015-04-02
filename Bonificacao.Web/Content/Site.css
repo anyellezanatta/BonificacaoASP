@@ -11,7 +11,8 @@
 
 input,
 select,
-textarea {
+textarea,
+button {
     max-width: 280px;
 }
 

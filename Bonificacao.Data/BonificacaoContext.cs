@@ -29,9 +29,7 @@ namespace Bonificacao.Data
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            modelBuilder.Entity<Indicacao>().HasRequired(e => e.PessoaOrigem).WithMany(e => e.IndicadoPor).HasForeignKey(e => e.PessoaOrigemId).WillCascadeOnDelete(false);
-            modelBuilder.Entity<Indicacao>().HasRequired(e => e.PessoaIndicada).WithMany(e => e.Indicacoes).HasForeignKey(e => e.PessoaIndicadaId).WillCascadeOnDelete(false);
-            modelBuilder.Entity<Indicacao>().HasKey(e => new { e.PessoaOrigemId, e.PessoaIndicadaId });
+            modelBuilder.Entity<Indicacao>().HasRequired(e => e.Pessoa).WithMany(e => e.Indicacoes).HasForeignKey(e => e.PessoaId).WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Movimento>().HasRequired(e => e.Cliente).WithMany(e => e.Movimentos).HasForeignKey(e => e.ClienteId).WillCascadeOnDelete(false);
             modelBuilder.Entity<Movimento>().HasRequired(e => e.Estabelecimento).WithMany(e => e.Movimentos).HasForeignKey(e => e.EstabelecimentoId).WillCascadeOnDelete(false);
@@ -39,6 +37,8 @@ namespace Bonificacao.Data
             modelBuilder.Entity<Movimento>().HasRequired(e => e.Produto).WithMany(e => e.Movimentos).HasForeignKey(e => e.ProdutoId).WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Pessoa>().Property(e => e.Usuario).HasMaxLength(60);
+            modelBuilder.Entity<Indicacao>().Property(e => e.EmailDestino).HasMaxLength(60).IsRequired();
+            modelBuilder.Entity<Indicacao>().HasKey(e => new { e.EmailDestino, e.PessoaId });
         }
 
         public override Task<int> SaveChangesAsync()

@@ -64,6 +64,14 @@
     <Compile Include="Migrations\201504010206470_AlteradoTipoCampoNome.Designer.cs">
       <DependentUpon>201504010206470_AlteradoTipoCampoNome.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201504012329438_RemovidoVinculoPessoaIndicada.cs" />
+    <Compile Include="Migrations\201504012329438_RemovidoVinculoPessoaIndicada.Designer.cs">
+      <DependentUpon>201504012329438_RemovidoVinculoPessoaIndicada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504020022098_EmailPessoaChave.cs" />
+    <Compile Include="Migrations\201504020022098_EmailPessoaChave.Designer.cs">
+      <DependentUpon>201504020022098_EmailPessoaChave.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\SHA256Generator.cs" />
@@ -84,6 +92,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504010206470_AlteradoTipoCampoNome.resx">
       <DependentUpon>201504010206470_AlteradoTipoCampoNome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504012329438_RemovidoVinculoPessoaIndicada.resx">
+      <DependentUpon>201504012329438_RemovidoVinculoPessoaIndicada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504020022098_EmailPessoaChave.resx">
+      <DependentUpon>201504020022098_EmailPessoaChave.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
