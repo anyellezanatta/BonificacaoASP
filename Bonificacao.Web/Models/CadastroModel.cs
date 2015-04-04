@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Bonificacao.Web.Models
 {
-    public class CadastroModel
+    public class CadastroModel : ViewModelBase
     {
         public TipoPessoa? Tipo { get; set; }
 

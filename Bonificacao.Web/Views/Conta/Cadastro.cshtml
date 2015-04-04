@@ -10,7 +10,7 @@
         @Html.AntiForgeryToken()
         <h2>Cadastro</h2>
 
-        if (User.Identity.IsAuthenticated && (bool)ViewBag.Administrador)
+        if (User.Identity.IsAuthenticated && Model.TipoUsuario == Bonificacao.Data.TipoPessoa.Administrador)
         {
             <div class="form-group">
                 @Html.LabelFor(model => model.Tipo)
@@ -51,6 +51,7 @@
         <div class="form-group">
             <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastro</button>
         </div>
+        @Html.ActionLink("Voltar para o login", "Login", "Conta")
     }
 </div>
 

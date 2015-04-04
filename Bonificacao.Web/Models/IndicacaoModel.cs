@@ -12,5 +12,9 @@ namespace Bonificacao.Web.Models
         [DataType(DataType.EmailAddress, ErrorMessage = "E-mail inválido")]
         [Required]
         public string Email { get; set; }
+
+        [Display(Name = "Estabelecimento")]
+        [Required]
+        public int? EstabelecimentoSelecionado { get; set; }
     }
 }

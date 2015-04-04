@@ -118,16 +118,21 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ContaController.cs" />
+    <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\GruposEstabelecimentoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndicacoesController.cs" />
+    <Compile Include="Controllers\MovimentacaoController.cs" />
     <Compile Include="Controllers\ProdutosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CadastroModel.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\IndicacaoModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\MinhaIndicacaoModel.cs" />
+    <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +156,10 @@
     <Content Include="Views\Indicacoes\Index.cshtml" />
     <Content Include="Views\Indicacoes\Indicar.cshtml" />
     <Content Include="Views\Indicacoes\MinhasIndicacoes.cshtml" />
+    <Content Include="Views\Movimentacao\Create.cshtml" />
+    <Content Include="Views\Movimentacao\Details.cshtml" />
+    <Content Include="Views\Movimentacao\Edit.cshtml" />
+    <Content Include="Views\Movimentacao\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -12,10 +12,9 @@ using System.Web.Security;
 namespace Bonificacao.Web.Controllers
 {
     [AllowAnonymous]
-    public class ContaController : Controller
+    [OverrideAuthorization]
+    public class ContaController : ControllerBase
     {
-        BonificacaoContext db = new BonificacaoContext();
-
         // GET: Conta/Login
         public ActionResult Login()
         {
@@ -31,7 +30,7 @@ namespace Bonificacao.Web.Controllers
                 try
                 {
                     var senhaEncriptada = SHA256Generator.GetHash(loginModel.Senha);
-                    var usuario = db.Pessoas.FirstOrDefault(p => p.Usuario == loginModel.Usuario && p.Senha == senhaEncriptada);
+                    var usuario = Context.Pessoas.FirstOrDefault(p => p.Usuario == loginModel.Usuario && p.Senha == senhaEncriptada);
                     if (usuario != null)
                         FormsAuthentication.SetAuthCookie(loginModel.Usuario, loginModel.Lembrar);
                     else
@@ -54,10 +53,7 @@ namespace Bonificacao.Web.Controllers
         // GET: Conta/Cadastro
         public ActionResult Cadastro(string email = null)
         {
-            var usuario = db.Pessoas.FirstOrDefault(e => e.Usuario == User.Identity.Name);
-            ViewBag.Administrador = (usuario != null && usuario.Tipo == TipoPessoa.Administrador);
-
-            return View(new CadastroModel() { Email = email });
+            return View(new CadastroModel() { Email = email, TipoUsuario = base.GetTipoUsuario() });
         }
 
         // POST: Conta/Cadastro
@@ -76,8 +72,8 @@ namespace Bonificacao.Web.Controllers
                         Senha = SHA256Generator.GetHash(loginModel.Senha),
                         Usuario = loginModel.Email
                     };
-                    db.Pessoas.Add(pessoa);
-                    var result = db.SaveChanges() > 0;
+                    Context.Pessoas.Add(pessoa);
+                    var result = Context.SaveChanges() > 0;
 
                     FormsAuthentication.SignOut();
                     FormsAuthentication.SetAuthCookie(loginModel.Email, false);
@@ -92,7 +88,7 @@ namespace Bonificacao.Web.Controllers
                 }
                 catch (Exception)
                 {
-                    return View();
+                    return View(loginModel);
                 }
             }
             return View(loginModel);
@@ -102,16 +98,6 @@ namespace Bonificacao.Web.Controllers
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (db != null)
-            {
-                db.Dispose();
-                db = null;
-            }
-            base.Dispose(disposing);
         }
     }
 }

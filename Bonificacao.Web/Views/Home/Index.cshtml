@@ -1,6 +1,29 @@
-﻿
+﻿@model Bonificacao.Web.Models.HomeViewModel
+
 @{
     ViewBag.Title = "Home";
 }
 
-@Html.ActionLink("Indicações", "Index", "Indicacoes")
+@switch (Model.TipoUsuario)
+{
+    case Bonificacao.Data.TipoPessoa.Cliente:
+        <p>
+            @Html.ActionLink("Indicações", "Index", "Indicacoes")
+        </p>
+        <p>
+            @Html.ActionLink("Movimentação", "Index", "Movimentacao")
+        </p>
+        break;
+    case Bonificacao.Data.TipoPessoa.Administrador:
+        <p>
+            @Html.ActionLink("Movimentação", "Index", "Movimentacao")
+        </p>
+        break;
+    case Bonificacao.Data.TipoPessoa.Vendedor:
+        <p>
+            @Html.ActionLink("Movimentação", "Create", "Movimentacao")
+        </p>
+        break;
+    default:
+        break;
+}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bonificacao.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,13 +7,12 @@ using System.Web.Mvc;
 
 namespace Bonificacao.Web.Controllers
 {
-    [Authorize]
-    public class HomeController : Controller
+    public class HomeController : ControllerBase
     {
-        // GET: Home
         public ActionResult Index()
         {
-            return View();
+            var model = new HomeViewModel() { TipoUsuario = base.GetTipoUsuario() };
+            return View(model);
         }
     }
 }

@@ -10,14 +10,12 @@ using Bonificacao.Data;
 
 namespace Bonificacao.Web.Controllers
 {
-    public class ProdutosController : Controller
+    public class ProdutosController : ControllerBase
     {
-        private BonificacaoContext db = new BonificacaoContext();
-
         // GET: Produtos
         public ActionResult Index()
         {
-            return View(db.Produtos.ToList());
+            return View(Context.Produtos.ToList());
         }
 
         // GET: Produtos/Cadastrar
@@ -33,8 +31,8 @@ namespace Bonificacao.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Produtos.Add(produto);
-                db.SaveChanges();
+                Context.Produtos.Add(produto);
+                Context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -48,7 +46,7 @@ namespace Bonificacao.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Produto produto = db.Produtos.Find(id);
+            Produto produto = Context.Produtos.Find(id);
             if (produto == null)
             {
                 return HttpNotFound();
@@ -63,8 +61,8 @@ namespace Bonificacao.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(produto).State = EntityState.Modified;
-                db.SaveChanges();
+                Context.Entry(produto).State = EntityState.Modified;
+                Context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(produto);
@@ -77,7 +75,7 @@ namespace Bonificacao.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Produto produto = db.Produtos.Find(id);
+            Produto produto = Context.Produtos.Find(id);
             if (produto == null)
             {
                 return HttpNotFound();
@@ -90,19 +88,10 @@ namespace Bonificacao.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Deletar(int id)
         {
-            Produto produto = db.Produtos.Find(id);
-            db.Produtos.Remove(produto);
-            db.SaveChanges();
+            Produto produto = Context.Produtos.Find(id);
+            Context.Produtos.Remove(produto);
+            Context.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

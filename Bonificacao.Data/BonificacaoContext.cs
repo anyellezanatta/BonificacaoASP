@@ -38,7 +38,7 @@ namespace Bonificacao.Data
 
             modelBuilder.Entity<Pessoa>().Property(e => e.Usuario).HasMaxLength(60);
             modelBuilder.Entity<Indicacao>().Property(e => e.EmailDestino).HasMaxLength(60).IsRequired();
-            modelBuilder.Entity<Indicacao>().HasKey(e => new { e.EmailDestino, e.PessoaId });
+            modelBuilder.Entity<Indicacao>().HasKey(e => new { e.EmailDestino, e.PessoaId, e.EstabelecimentoId });
         }
 
         public override Task<int> SaveChangesAsync()

@@ -10,14 +10,12 @@ using Bonificacao.Data;
 
 namespace Bonificacao.Web.Controllers
 {
-    public class GruposEstabelecimentoController : Controller
+    public class GruposEstabelecimentoController : ControllerBase
     {
-        private BonificacaoContext db = new BonificacaoContext();
-
         // GET: GruposEstabelecimento
         public ActionResult Index()
         {
-            return View(db.GruposEstabelecimento.ToList());
+            return View(Context.GruposEstabelecimento.ToList());
         }
 
         // GET: GruposEstabelecimento/Cadastrar
@@ -33,8 +31,8 @@ namespace Bonificacao.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.GruposEstabelecimento.Add(grupoEstabelecimento);
-                db.SaveChanges();
+                Context.GruposEstabelecimento.Add(grupoEstabelecimento);
+                Context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -48,7 +46,7 @@ namespace Bonificacao.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GrupoEstabelecimento grupoEstabelecimento = db.GruposEstabelecimento.Find(id);
+            GrupoEstabelecimento grupoEstabelecimento = Context.GruposEstabelecimento.Find(id);
             if (grupoEstabelecimento == null)
             {
                 return HttpNotFound();
@@ -63,8 +61,8 @@ namespace Bonificacao.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(grupoEstabelecimento).State = EntityState.Modified;
-                db.SaveChanges();
+                Context.Entry(grupoEstabelecimento).State = EntityState.Modified;
+                Context.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(grupoEstabelecimento);
@@ -77,7 +75,7 @@ namespace Bonificacao.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            GrupoEstabelecimento grupoEstabelecimento = db.GruposEstabelecimento.Find(id);
+            GrupoEstabelecimento grupoEstabelecimento = Context.GruposEstabelecimento.Find(id);
             if (grupoEstabelecimento == null)
             {
                 return HttpNotFound();
@@ -90,19 +88,10 @@ namespace Bonificacao.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Deletar(int id)
         {
-            GrupoEstabelecimento grupoEstabelecimento = db.GruposEstabelecimento.Find(id);
-            db.GruposEstabelecimento.Remove(grupoEstabelecimento);
-            db.SaveChanges();
+            GrupoEstabelecimento grupoEstabelecimento = Context.GruposEstabelecimento.Find(id);
+            Context.GruposEstabelecimento.Remove(grupoEstabelecimento);
+            Context.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

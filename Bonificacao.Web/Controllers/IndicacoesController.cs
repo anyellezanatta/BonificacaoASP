@@ -11,10 +11,8 @@ using System.Web.Mvc;
 
 namespace Bonificacao.Web.Controllers
 {
-    public class IndicacoesController : Controller
+    public class IndicacoesController : ControllerBase
     {
-        BonificacaoContext context = new BonificacaoContext();
-
         public ViewResult Index()
         {
             return View();
@@ -23,17 +21,35 @@ namespace Bonificacao.Web.Controllers
         [ChildActionOnly]
         public PartialViewResult Indicar()
         {
+            ViewBag.Estabelecimentos = Context.Estabelecimentos
+                .ToList()
+                .OrderBy(e => e.Nome)
+                .Select(e => new SelectListItem()
+                {
+                    Text = e.Nome,
+                    Value = e.Id.ToString()
+                });
             return PartialView();
         }
 
+        [ChildActionOnly]
         [HttpPost]
         public PartialViewResult Indicar(IndicacaoModel model)
         {
             if (ModelState.IsValid)
             {
+                ViewBag.Estabelecimentos = Context.Estabelecimentos
+                    .ToList()
+                    .OrderBy(e => e.Nome)
+                    .Select(e => new SelectListItem()
+                    {
+                        Text = e.Nome,
+                        Value = e.Id.ToString()
+                    });
+
                 try
                 {
-                    var pessoa = context.Pessoas.FirstOrDefault(e => e.Usuario == User.Identity.Name);
+                    var pessoa = Context.Pessoas.FirstOrDefault(e => e.Usuario == User.Identity.Name);
                     if (pessoa.Usuario == model.Email)
                     {
                         ModelState.AddModelError("Email", "Não foi possível indicar esse e-mail");
@@ -42,20 +58,21 @@ namespace Bonificacao.Web.Controllers
                     var indicacao = new Indicacao()
                     {
                         EmailDestino = model.Email,
-                        PessoaId = pessoa.Id
+                        PessoaId = pessoa.Id,
+                        EstabelecimentoId = model.EstabelecimentoSelecionado.Value
                     };
 
-                    context.Indicacoes.Add(indicacao);
-                    context.SaveChanges();
+                    Context.Indicacoes.Add(indicacao);
+                    Context.SaveChanges();
 
                     var usuarioEmail = ConfigurationManager.AppSettings["SendgridAccount"];
                     var senhaEmail = ConfigurationManager.AppSettings["SendgridKey"];
 
                     var email = new SendGrid.SendGridMessage(
-                        new MailAddress("anyelle.ad@gmail.com"), 
-                        new MailAddress[] { new MailAddress(model.Email) }, 
-                        "Indicação de posto", 
-                        "<p>Você foi indicado para abastecer no posto, clique <a href=\"" + Url.Action("Cadastro", "Conta", new { email = model.Email }, Request.Url.Scheme) + "\">aqui</a> para se cadastrar</p>", 
+                        new MailAddress("anyelle.ad@gmail.com"),
+                        new MailAddress[] { new MailAddress(model.Email) },
+                        "Indicação de posto",
+                        "<p>Você foi indicado para abastecer no posto, clique <a href=\"" + Url.Action("Cadastro", "Conta", new { email = model.Email }, Request.Url.Scheme) + "\">aqui</a> para se cadastrar</p>",
                         "Você foi indicado para abastecer no posto");
                     var client = new SendGrid.Web(new System.Net.NetworkCredential(usuarioEmail, senhaEmail));
                     client.Deliver(email);
@@ -68,16 +85,17 @@ namespace Bonificacao.Web.Controllers
                 {
                 }
             }
+
             return PartialView();
         }
 
         [ChildActionOnly]
         public PartialViewResult MinhasIndicacoes()
         {
-            var pessoa = context.Pessoas.FirstOrDefault(e => e.Usuario == User.Identity.Name);
+            var pessoa = Context.Pessoas.FirstOrDefault(e => e.Usuario == User.Identity.Name);
             if (pessoa != null)
             {
-                return PartialView(pessoa.Indicacoes.Select(e => e.EmailDestino).ToList());
+                return PartialView(pessoa.Indicacoes.Select(e => new MinhaIndicacaoModel { Email = e.EmailDestino, Estabelecimento = e.Estabelecimento.Nome }).ToList());
             }
             return PartialView();
         }

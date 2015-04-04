@@ -1,8 +1,10 @@
-﻿@model IEnumerable<string>
+﻿@model IEnumerable<Bonificacao.Web.Models.MinhaIndicacaoModel>
+
+<h2>Minhas indicações</h2>
 
 @foreach (var item in Model)
 {
     <p>
-        @Html.DisplayTextFor(e => item)
+        @Html.DisplayTextFor(e => item.Email) | @Html.DisplayTextFor(e => item.Estabelecimento)
     </p>
 }

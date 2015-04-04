@@ -14,9 +14,9 @@ namespace Bonificacao.Data
         DateTimeOffset? DataModificacao { get; set; }
     }
 
-    public enum TipoMovimento { RecebimentoBonus = 1, DescontoBonus = 2, Ajustes = 3 }
+    public enum TipoMovimento { Venda = 1, RecebimentoBonus = 1, DescontoBonus = 2, Ajustes = 3 }
 
-    public enum TipoPessoa { Cliente = 1, Administrador = 2, Frentista = 3 }
+    public enum TipoPessoa { Cliente = 1, Administrador = 2, Vendedor = 3 }
 
     public class EntityBase : IChangeTracker
     {
@@ -37,6 +37,7 @@ namespace Bonificacao.Data
         public int? GrupoEstabelecimentoId { get; set; }
         public virtual GrupoEstabelecimento GrupoEstabelecimento { get; set; }
         public virtual ICollection<Movimento> Movimentos { get; set; }
+        public virtual ICollection<Indicacao> Indicacoes { get; set; }
     }
 
     public class GrupoEstabelecimento : EntityBase
@@ -52,14 +53,18 @@ namespace Bonificacao.Data
         [Index(IsUnique = true)]
         public string Usuario { get; set; }
         public string Senha { get; set; }
+        public int? EstabelecimentoId { get; set; }
         public virtual ICollection<Indicacao> Indicacoes { get; set; }
         public virtual ICollection<Movimento> Movimentos { get; set; }
+        public virtual Estabelecimento Estabelecimento { get; set; }
     }
 
     public class Indicacao : IChangeTracker
     {
         public int PessoaId { get; set; }
+        public int EstabelecimentoId { get; set; }
         public virtual Pessoa Pessoa { get; set; }
+        public virtual Estabelecimento Estabelecimento { get; set; }
         public string EmailDestino { get; set; }
         public DateTimeOffset DataCriacao { get; set; }
         public DateTimeOffset? DataModificacao { get; set; }
@@ -80,15 +85,16 @@ namespace Bonificacao.Data
         public TipoMovimento TipoMovimento { get; set; }
         public int ClienteId { get; set; }
         public int EstabelecimentoId { get; set; }
-        public int FrentistaId { get; set; }
+        public int VendedorId { get; set; }
         public int ProdutoId { get; set; }
-        public decimal? Debito { get; set; }
-        public decimal? Credito { get; set; }
+        public decimal Quantidade { get; set; }
+        public decimal ValorBonus { get; set; }
+        public decimal SaldoBonus { get; set; }
         public decimal ValorPago { get; set; }
         public DateTimeOffset DataHoraMovimento { get; set; }
         public virtual Pessoa Cliente { get; set; }
         public virtual Estabelecimento Estabelecimento { get; set; }
-        public virtual Pessoa Frentista { get; set; }
+        public virtual Pessoa Vendedor { get; set; }
         public virtual Produto Produto { get; set; }
     }
 }
