@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ConfiguracoesController.cs" />
     <Compile Include="Controllers\ContaController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
     <Compile Include="Controllers\EstabelecimentosController.cs" />
@@ -165,6 +166,11 @@
     <Content Include="Views\Estabelecimentos\Deletar.cshtml" />
     <Content Include="Views\Estabelecimentos\Editar.cshtml" />
     <Content Include="Views\Estabelecimentos\Index.cshtml" />
+    <Content Include="Views\Configuracoes\Create.cshtml" />
+    <Content Include="Views\Configuracoes\Delete.cshtml" />
+    <Content Include="Views\Configuracoes\Details.cshtml" />
+    <Content Include="Views\Configuracoes\Editar.cshtml" />
+    <Content Include="Views\Configuracoes\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

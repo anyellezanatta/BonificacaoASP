@@ -26,6 +26,11 @@ namespace Bonificacao.Data.Migrations
                         Tipo = TipoPessoa.Administrador
                     });
             }
+
+            if (!context.Configuracoes.Any())
+            {
+                context.Configuracoes.Add(new Configuracao() { BonusPorLitro = 0.02M, NivelBonificacao = 2 });
+            }
         }
     }
 }
