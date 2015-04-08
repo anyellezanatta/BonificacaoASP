@@ -52,8 +52,49 @@
     <Compile Include="Migrations\201503250146130_CriacaoInicial.Designer.cs">
       <DependentUpon>201503250146130_CriacaoInicial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503282328258_AlteracaoCamposData.cs" />
+    <Compile Include="Migrations\201503282328258_AlteracaoCamposData.Designer.cs">
+      <DependentUpon>201503282328258_AlteracaoCamposData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503290045570_IndiceUnicoUsuario.cs" />
+    <Compile Include="Migrations\201503290045570_IndiceUnicoUsuario.Designer.cs">
+      <DependentUpon>201503290045570_IndiceUnicoUsuario.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504010206470_AlteradoTipoCampoNome.cs" />
+    <Compile Include="Migrations\201504010206470_AlteradoTipoCampoNome.Designer.cs">
+      <DependentUpon>201504010206470_AlteradoTipoCampoNome.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504012329438_RemovidoVinculoPessoaIndicada.cs" />
+    <Compile Include="Migrations\201504012329438_RemovidoVinculoPessoaIndicada.Designer.cs">
+      <DependentUpon>201504012329438_RemovidoVinculoPessoaIndicada.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504020022098_EmailPessoaChave.cs" />
+    <Compile Include="Migrations\201504020022098_EmailPessoaChave.Designer.cs">
+      <DependentUpon>201504020022098_EmailPessoaChave.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504032342560_IndicacaoEstabelecimento.cs" />
+    <Compile Include="Migrations\201504032342560_IndicacaoEstabelecimento.Designer.cs">
+      <DependentUpon>201504032342560_IndicacaoEstabelecimento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504040153188_EmailPrimaryKey.cs" />
+    <Compile Include="Migrations\201504040153188_EmailPrimaryKey.Designer.cs">
+      <DependentUpon>201504040153188_EmailPrimaryKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504040238012_ModificacaoMovimento.cs" />
+    <Compile Include="Migrations\201504040238012_ModificacaoMovimento.Designer.cs">
+      <DependentUpon>201504040238012_ModificacaoMovimento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504040339067_VinculoPessoaEstabelecimento.cs" />
+    <Compile Include="Migrations\201504040339067_VinculoPessoaEstabelecimento.Designer.cs">
+      <DependentUpon>201504040339067_VinculoPessoaEstabelecimento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201504040352006_AdicionadaQuantidadeMovimento.cs" />
+    <Compile Include="Migrations\201504040352006_AdicionadaQuantidadeMovimento.Designer.cs">
+      <DependentUpon>201504040352006_AdicionadaQuantidadeMovimento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\SHA256Generator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -62,6 +103,36 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201503250146130_CriacaoInicial.resx">
       <DependentUpon>201503250146130_CriacaoInicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503282328258_AlteracaoCamposData.resx">
+      <DependentUpon>201503282328258_AlteracaoCamposData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503290045570_IndiceUnicoUsuario.resx">
+      <DependentUpon>201503290045570_IndiceUnicoUsuario.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504010206470_AlteradoTipoCampoNome.resx">
+      <DependentUpon>201504010206470_AlteradoTipoCampoNome.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504012329438_RemovidoVinculoPessoaIndicada.resx">
+      <DependentUpon>201504012329438_RemovidoVinculoPessoaIndicada.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504020022098_EmailPessoaChave.resx">
+      <DependentUpon>201504020022098_EmailPessoaChave.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504032342560_IndicacaoEstabelecimento.resx">
+      <DependentUpon>201504032342560_IndicacaoEstabelecimento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504040153188_EmailPrimaryKey.resx">
+      <DependentUpon>201504040153188_EmailPrimaryKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504040238012_ModificacaoMovimento.resx">
+      <DependentUpon>201504040238012_ModificacaoMovimento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504040339067_VinculoPessoaEstabelecimento.resx">
+      <DependentUpon>201504040339067_VinculoPessoaEstabelecimento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201504040352006_AdicionadaQuantidadeMovimento.resx">
+      <DependentUpon>201504040352006_AdicionadaQuantidadeMovimento.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

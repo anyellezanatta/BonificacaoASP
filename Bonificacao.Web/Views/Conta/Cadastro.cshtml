@@ -1,0 +1,60 @@
+﻿@model Bonificacao.Web.Models.CadastroModel
+
+@{
+    ViewBag.Title = "Cadastro";
+}
+
+<div class="centered-box">
+    @using (Html.BeginForm("cadastro", "conta", FormMethod.Post, new { @class = "form-conta" }))
+    {
+        @Html.AntiForgeryToken()
+        <h2>Cadastro</h2>
+
+        if (User.Identity.IsAuthenticated && Model.TipoUsuario == Bonificacao.Data.TipoPessoa.Administrador)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Tipo)
+                @Html.EnumDropDownListFor(model => model.Tipo, htmlAttributes: new { @class = "form-control", placeholder = "Tipo" })
+                @Html.ValidationMessageFor(model => model.Tipo, "", new { @class = "text-danger" })
+            </div>
+        }
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome)
+            @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control", placeholder = "Nome" } })
+            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Email)
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "E-mail" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Senha)
+            @Html.EditorFor(model => model.Senha, new { htmlAttributes = new { @class = "form-control", placeholder = "Senha" } })
+            @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ConfirmacaoSenha)
+            @Html.EditorFor(model => model.ConfirmacaoSenha, new { htmlAttributes = new { @class = "form-control", placeholder = "Confirmação" } })
+            @Html.ValidationMessageFor(model => model.ConfirmacaoSenha, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
+
+
+        <div class="form-group">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Cadastro</button>
+        </div>
+        @Html.ActionLink("Voltar para o login", "Login", "Conta")
+    }
+</div>
+
+<script src="~/Scripts/jquery-2.1.3.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

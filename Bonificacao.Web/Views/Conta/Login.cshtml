@@ -1,0 +1,36 @@
+﻿@model Bonificacao.Web.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="centered-box">
+    @using (Html.BeginForm("login", "conta", FormMethod.Post, new { @class = "form-conta" }))
+    {
+        @Html.AntiForgeryToken()
+        <h2>Login</h2>
+        @Html.LabelFor(model => model.Usuario, new { @class = "sr-only" })
+        @Html.TextBoxFor(model => model.Usuario, new { @class = "form-control", placeholder = "Usuário" })
+        @Html.ValidationMessageFor(model => model.Usuario, "", new { @class = "text-danger" })
+        @Html.LabelFor(model => model.Senha, new { @class = "sr-only" })
+        @Html.PasswordFor(model => model.Senha, new { @class = "form-control", placeholder = "Senha" })
+        @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                @Html.CheckBoxFor(model => model.Lembrar, false)
+                @Html.LabelFor(model => model.Lembrar, "Mantenha-me conectado")
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+        </div>
+        @Html.ActionLink("Não possui cadastro?", "Cadastro")
+    }
+</div>
+
+<script src="~/Scripts/jquery-2.1.3.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

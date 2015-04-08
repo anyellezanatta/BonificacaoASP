@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Bonificacao.Data.GrupoEstabelecimento>
+
+@{
+    ViewBag.Title = "Grupos de estabelecimento";
+}
+
+<h2>Grupos de estabelecimento</h2>
+
+<p>
+    @Html.ActionLink("Cadastrar", "Cadastrar")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nome)
+        </td>
+        
+        <td>
+            @Html.ActionLink("Editar", "Editar", new { id=item.Id }) |            
+            @Html.ActionLink("Deletar", "Deletar", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

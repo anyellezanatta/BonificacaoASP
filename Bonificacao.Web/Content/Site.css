@@ -1,0 +1,75 @@
+﻿body {
+    padding-top: 70px;
+    padding-bottom: 20px;
+    background-color: #eee !important;
+}
+
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+input,
+select,
+textarea,
+button {
+    max-width: 280px;
+}
+
+* {
+    border-radius: 0 !important;
+}
+
+.form-conta {
+    max-width: 280px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.error {
+    color: #FF0000;
+}
+
+.centered-box {
+    position: fixed; /* or absolute if you want it to scroll with the page */
+    top: 50%;
+    left: 50%;
+    width: 600px;
+    height: 300px;
+    /* this is where it all comes into play:
+     Set the margins so that:
+     margin-top is -(height/2)
+     margin-left is -(width/2)
+  */
+    margin-top: -150px;
+    margin-left: -300px;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #b94a48 !important;
+}
+
+.field-validation-valid {
+    display: none !important;
+}
+
+.input-validation-error {
+    border: 1px solid #b94a48 !important;
+}
+
+.validation-summary-errors {
+    color: #b94a48 !important;
+    /*font-size: 12px;*/
+}
+
+    .validation-summary-errors ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+.validation-summary-valid {
+    display: none !important;
+}

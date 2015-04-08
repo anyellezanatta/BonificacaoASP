@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -13,6 +14,8 @@ namespace Bonificacao.Web
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<Bonificacao.Data.BonificacaoContext, Bonificacao.Data.Migrations.Configuration>());
         }
     }
 }
