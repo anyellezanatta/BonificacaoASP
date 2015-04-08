@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace Bonificacao.Web.Controllers
 {
+    [Authorize]
     public class HomeController : ControllerBase
     {
         public ActionResult Index()

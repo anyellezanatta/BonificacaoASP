@@ -7,7 +7,6 @@ using System.Web.Mvc;
 
 namespace Bonificacao.Web.Controllers
 {
-    [Authorize]
     public class ControllerBase : Controller
     {
         protected readonly BonificacaoContext Context = new BonificacaoContext();

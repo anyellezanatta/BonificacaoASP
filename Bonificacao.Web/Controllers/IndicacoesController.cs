@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace Bonificacao.Web.Controllers
 {
+    [Authorize]
     public class IndicacoesController : ControllerBase
     {
         public ViewResult Index()

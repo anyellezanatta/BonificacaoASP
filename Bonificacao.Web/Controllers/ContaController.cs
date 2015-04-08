@@ -53,7 +53,7 @@ namespace Bonificacao.Web.Controllers
         // GET: Conta/Cadastro
         public ActionResult Cadastro(string email = null)
         {
-            return View(new CadastroModel() { Email = email, TipoUsuario = base.GetTipoUsuario() });
+            return View(new CadastroModel() { Email = email, TipoUsuario = TipoPessoa.Cliente });
         }
 
         // POST: Conta/Cadastro
