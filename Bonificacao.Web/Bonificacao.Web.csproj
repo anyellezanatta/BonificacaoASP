@@ -119,6 +119,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ContaController.cs" />
     <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\EstabelecimentosController.cs" />
     <Compile Include="Controllers\GruposEstabelecimentoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IndicacoesController.cs" />
@@ -160,6 +161,10 @@
     <Content Include="Views\Movimentacao\Details.cshtml" />
     <Content Include="Views\Movimentacao\Edit.cshtml" />
     <Content Include="Views\Movimentacao\Index.cshtml" />
+    <Content Include="Views\Estabelecimentos\Cadastrar.cshtml" />
+    <Content Include="Views\Estabelecimentos\Deletar.cshtml" />
+    <Content Include="Views\Estabelecimentos\Editar.cshtml" />
+    <Content Include="Views\Estabelecimentos\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
