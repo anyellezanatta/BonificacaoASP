@@ -10,6 +10,7 @@ using Bonificacao.Data;
 
 namespace Bonificacao.Web.Controllers
 {
+    [Authorize]
     public class ConfiguracoesController : Controller
     {
         private BonificacaoContext db = new BonificacaoContext();
@@ -27,8 +28,8 @@ namespace Bonificacao.Web.Controllers
         }
 
 
+
         // POST: Configuracoes/Editar2
-      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Editar([Bind(Include = "Id,BonusPorLitro,NivelBonificacao,DataCriacao,DataModificacao")] Configuracao configuracao)
@@ -37,7 +38,7 @@ namespace Bonificacao.Web.Controllers
             {
                 db.Entry(configuracao).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Editar");
             }
             return View(configuracao);
         }
