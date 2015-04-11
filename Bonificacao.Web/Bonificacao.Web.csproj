@@ -166,11 +166,7 @@
     <Content Include="Views\Estabelecimentos\Deletar.cshtml" />
     <Content Include="Views\Estabelecimentos\Editar.cshtml" />
     <Content Include="Views\Estabelecimentos\Index.cshtml" />
-    <Content Include="Views\Configuracoes\Create.cshtml" />
-    <Content Include="Views\Configuracoes\Delete.cshtml" />
-    <Content Include="Views\Configuracoes\Details.cshtml" />
     <Content Include="Views\Configuracoes\Editar.cshtml" />
-    <Content Include="Views\Configuracoes\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
