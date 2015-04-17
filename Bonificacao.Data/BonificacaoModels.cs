@@ -27,7 +27,9 @@ namespace Bonificacao.Data
 
     public class Configuracao : EntityBase
     {
+        [Display(Name="Bônus por litro")]
         public decimal BonusPorLitro { get; set; }
+        [Display(Name = "Nível de bonificação")]
         public int NivelBonificacao { get; set; }
     }
 

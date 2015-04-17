@@ -38,7 +38,8 @@ namespace Bonificacao.Web.Controllers
             {
                 db.Entry(configuracao).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Editar");
+                return RedirectToAction("Index","Home");
+                // Direciona pro index do controller home
             }
             return View(configuracao);
         }
