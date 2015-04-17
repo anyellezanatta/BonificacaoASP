@@ -29,7 +29,7 @@ namespace Bonificacao.Data.Migrations
 
             if (!context.Configuracoes.Any())
             {
-                context.Configuracoes.Add(new Configuracao() { Bonificação por Litro = 0.02M, NivelBonificacao = 2 });
+                context.Configuracoes.Add(new Configuracao() { BonusPorLitro = 0.02M, NivelBonificacao = 2 });
             }
         }
     }
