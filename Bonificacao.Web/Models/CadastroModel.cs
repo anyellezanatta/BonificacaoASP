@@ -11,6 +11,8 @@ namespace Bonificacao.Web.Models
     {
         public TipoPessoa? Tipo { get; set; }
 
+        public int? EstabelecimentoId { get; set; }
+
         [Required]
         [Display(Name = "Nome")]
         public string Nome { get; set; }

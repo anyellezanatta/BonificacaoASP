@@ -19,7 +19,8 @@ namespace Bonificacao.Web.Controllers
 
         protected TipoPessoa GetTipoUsuario()
         {
-            return GetUsuario().Tipo;
+            var usuario = GetUsuario();
+            return usuario != null ? usuario.Tipo : TipoPessoa.Cliente;
         }
     }
 }

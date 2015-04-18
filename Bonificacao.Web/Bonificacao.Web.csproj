@@ -134,6 +134,7 @@
     <Compile Include="Models\IndicacaoModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MinhaIndicacaoModel.cs" />
+    <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Models\ViewModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -167,6 +168,7 @@
     <Content Include="Views\Estabelecimentos\Editar.cshtml" />
     <Content Include="Views\Estabelecimentos\Index.cshtml" />
     <Content Include="Views\Configuracoes\Editar.cshtml" />
+    <Content Include="Views\Conta\Usuarios.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

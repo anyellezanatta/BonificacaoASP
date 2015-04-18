@@ -35,7 +35,7 @@ namespace Bonificacao.Data
     {
         public string Nome { get; set; }
 
-        [Display(Name="Grupo")]
+        [Display(Name = "Grupo")]
         public int? GrupoEstabelecimentoId { get; set; }
         public virtual GrupoEstabelecimento GrupoEstabelecimento { get; set; }
         public virtual ICollection<Movimento> Movimentos { get; set; }
@@ -44,6 +44,7 @@ namespace Bonificacao.Data
 
     public class GrupoEstabelecimento : EntityBase
     {
+        [Display(Name = "Grupo")]
         public string Nome { get; set; }
         public virtual ICollection<Estabelecimento> Estabelecimentos { get; set; }
     }

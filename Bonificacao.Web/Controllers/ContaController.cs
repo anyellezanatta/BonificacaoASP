@@ -8,16 +8,36 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using System.Diagnostics;
 
 namespace Bonificacao.Web.Controllers
 {
     [AllowAnonymous]
-    [OverrideAuthorization]
     public class ContaController : ControllerBase
     {
+        public ActionResult Usuarios()
+        {
+            var pessoaLogada = GetUsuario();
+
+            var usuarios = Context.Pessoas.Where(p => p.Usuario != pessoaLogada.Usuario).Select(p =>
+                new UsuarioModel()
+                {
+                    Id = p.Id,
+                    Email = p.Usuario,
+                    Nome = p.Nome,
+                    Tipo = p.Tipo.ToString(),
+                    Estabelecimento = p.Estabelecimento != null ? p.Estabelecimento.Nome : null
+                });
+
+            return View(usuarios);
+        }
+
         // GET: Conta/Login
         public ActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Home");
+
             return View();
         }
 
@@ -53,13 +73,21 @@ namespace Bonificacao.Web.Controllers
         // GET: Conta/Cadastro
         public ActionResult Cadastro(string email = null)
         {
-            return View(new CadastroModel() { Email = email, TipoUsuario = TipoPessoa.Cliente });
+            ViewBag.Estabelecimentos = new SelectList(Context.Estabelecimentos.ToList(), "Id", "Nome");
+
+            return View(new CadastroModel() { Email = email, TipoUsuario = GetTipoUsuario() });
         }
 
         // POST: Conta/Cadastro
         [HttpPost]
         public ActionResult Cadastro(CadastroModel loginModel)
         {
+            ViewBag.Estabelecimentos = new SelectList(Context.Estabelecimentos.ToList(), "Id", "Nome");
+            loginModel.TipoUsuario = GetTipoUsuario();
+
+            if (loginModel.Tipo == TipoPessoa.Vendedor && loginModel.EstabelecimentoId.GetValueOrDefault(0) == 0)
+                ModelState.AddModelError("EstabelecimentoId", "O campo Estabelecimento é obrigatório");
+
             if (ModelState.IsValid)
             {
                 try
@@ -70,15 +98,19 @@ namespace Bonificacao.Web.Controllers
                         Tipo = loginModel.Tipo.HasValue ? loginModel.Tipo.Value : TipoPessoa.Cliente,
                         Nome = loginModel.Nome,
                         Senha = SHA256Generator.GetHash(loginModel.Senha),
-                        Usuario = loginModel.Email
+                        Usuario = loginModel.Email,
+                        EstabelecimentoId = loginModel.EstabelecimentoId
                     };
                     Context.Pessoas.Add(pessoa);
                     var result = Context.SaveChanges() > 0;
 
-                    FormsAuthentication.SignOut();
-                    FormsAuthentication.SetAuthCookie(loginModel.Email, false);
-
-                    return RedirectToAction("Index", "Home");
+                    if (!User.Identity.IsAuthenticated)
+                    {
+                        FormsAuthentication.SetAuthCookie(loginModel.Email, false);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                        return RedirectToAction("Usuarios");
                 }
                 catch (DbUpdateException)
                 {
@@ -88,6 +120,7 @@ namespace Bonificacao.Web.Controllers
                 }
                 catch (Exception)
                 {
+                    ModelState.AddModelError("", "Não foi possível salvar o cadastro");
                     return View(loginModel);
                 }
             }
