@@ -27,12 +27,15 @@ namespace Bonificacao.Data
 
     public class Configuracao : EntityBase
     {
+        [Display(Name="Bônus por litro")]
         public decimal BonusPorLitro { get; set; }
+        [Display(Name = "Nível de bonificação")]
         public int NivelBonificacao { get; set; }
     }
 
     public class Estabelecimento : EntityBase
     {
+        [Display(Name="Estabelecimento")]
         public string Nome { get; set; }
 
         [Display(Name = "Grupo")]
@@ -75,8 +78,8 @@ namespace Bonificacao.Data
 
     public class Produto : EntityBase
     {
+        [Display(Name = "Produto")]
         public string Nome { get; set; }
-
         [Display(Name = "Preço")]
         [DisplayFormat(DataFormatString = "{0:c2}")]
         public decimal Preco { get; set; }
@@ -88,7 +91,7 @@ namespace Bonificacao.Data
         public TipoMovimento TipoMovimento { get; set; }
         public int ClienteId { get; set; }
         public int EstabelecimentoId { get; set; }
-        public int VendedorId { get; set; }
+        public int VendedorId { get; set; }        
         public int ProdutoId { get; set; }
         public decimal Quantidade { get; set; }
         public decimal ValorBonus { get; set; }
