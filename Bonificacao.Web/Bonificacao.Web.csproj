@@ -169,6 +169,7 @@
     <Content Include="Views\Estabelecimentos\Index.cshtml" />
     <Content Include="Views\Configuracoes\Editar.cshtml" />
     <Content Include="Views\Conta\Usuarios.cshtml" />
+    <Content Include="Views\Conta\DeletarUsuario.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

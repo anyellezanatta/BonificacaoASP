@@ -29,25 +29,113 @@ namespace Bonificacao.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,TipoMovimento,ClienteId,EstabelecimentoId,VendedorId,ProdutoId,ValorBonus,SaldoBonus,ValorPago,DataHoraMovimento,DataCriacao,DataModificacao")] Movimento movimento)
+        public ActionResult Create(Movimento movimento)
         {
             if (ModelState.IsValid)
             {
                 var usuario = base.GetUsuario();
+                var produto = Context.Produtos.FirstOrDefault(p => p.Id == movimento.ProdutoId);
+                if (usuario == null || produto == null)
+                    return HttpNotFound();
 
                 movimento.VendedorId = usuario.Id;
                 movimento.EstabelecimentoId = usuario.EstabelecimentoId.Value;
-                movimento.TipoMovimento = TipoMovimento.Venda;
 
+                movimento.TipoMovimento = TipoMovimento.Venda;
+                movimento.ValorBonus = 0;
+                movimento.SaldoBonus = 0;
+
+                decimal valorSaldoBonusCliente = 0;
+                var ultimaMovimentacaoCliente = Context.Movimentos
+                    .Where(e => e.ClienteId == movimento.ClienteId)
+                    .OrderByDescending(e => e.DataCriacao)
+                    .FirstOrDefault();
+
+                if (ultimaMovimentacaoCliente != null)
+                    valorSaldoBonusCliente = ultimaMovimentacaoCliente.SaldoBonus;
+
+                var valorTotal = movimento.Quantidade * produto.Preco;
+                movimento.ValorTotal = valorTotal;
+                if (valorSaldoBonusCliente > valorTotal)
+                {
+                    movimento.SaldoBonus = valorSaldoBonusCliente - valorTotal;
+                    movimento.ValorPago = 0;
+                }
+                else if (valorSaldoBonusCliente <= valorTotal)
+                {
+                    movimento.SaldoBonus = 0;
+                    movimento.ValorPago = valorTotal - valorSaldoBonusCliente;
+                }
                 Context.Movimentos.Add(movimento);
+
+                var configuracao = Context.Configuracoes.SingleOrDefault();
+                if (configuracao == null)
+                    return HttpNotFound();
+
+                var nivelBonificacao = configuracao.NivelBonificacao;
+                var bonusPorLitro = configuracao.BonusPorLitro;
+
+                //Bonificação
+                var cliente = Context.Pessoas.FirstOrDefault(e => e.Id == movimento.ClienteId);
+                decimal valorBonus = bonusPorLitro * movimento.Quantidade;
+
+                var pessoas = GetPessoasIndicacao(cliente.Usuario, movimento.EstabelecimentoId, nivelBonificacao).ToList().Distinct();
+                foreach (var pessoa in pessoas)
+                {
+                    decimal saldoBonus = 0;
+                    var ultimaMovimentacao = Context.Movimentos
+                        .Where(e => e.ClienteId == pessoa.Id)
+                        .OrderByDescending(e => e.DataCriacao)
+                        .FirstOrDefault();
+                    if (ultimaMovimentacao != null)
+                        saldoBonus = ultimaMovimentacao.SaldoBonus;
+
+                    var m = new Movimento() 
+                    { 
+                        ClienteId = pessoa.Id,
+                        VendedorId = movimento.VendedorId,
+                        EstabelecimentoId = movimento.EstabelecimentoId,
+                        ProdutoId = movimento.ProdutoId,
+                        TipoMovimento = TipoMovimento.RecebimentoBonus,
+                        Quantidade = 0,
+                        ValorPago = 0,
+                        ValorTotal = 0,
+                        ValorBonus = valorBonus,
+                        SaldoBonus = saldoBonus + valorBonus
+                    };
+                    Context.Movimentos.Add(m);
+                }
+
                 Context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClienteId = new SelectList(Context.Pessoas, "Id", "Nome", movimento.ClienteId);
-            ViewBag.EstabelecimentoId = new SelectList(Context.Estabelecimentos, "Id", "Nome", movimento.EstabelecimentoId);
-            ViewBag.ProdutoId = new SelectList(Context.Produtos, "Id", "Nome", movimento.ProdutoId);
+            ViewBag.ClienteId = new SelectList(Context.Pessoas.Where(e => e.Tipo == TipoPessoa.Cliente), "Id", "Nome");
+            ViewBag.EstabelecimentoId = new SelectList(Context.Estabelecimentos, "Id", "Nome");
+            ViewBag.ProdutoId = new SelectList(Context.Produtos, "Id", "Nome");
+
             return View(movimento);
+        }
+
+        public IEnumerable<Pessoa> GetPessoasIndicacao(string emailPessoaIndicada, int estabelecimentoId, int nivel)
+        {
+            if (nivel > 0)
+            {
+                var indicacoes = Context.Indicacoes.Where(e => e.EmailDestino == emailPessoaIndicada).Select(e => e.PessoaId).ToList(); //Traz ids de pessoas que indicaram o cliente (por e-mail)
+                var pessoas = Context.Pessoas.Where(e => indicacoes.Contains(e.Id)).ToList(); //Traz pessoas que indicaram o e-mail do cliente
+                nivel--;
+
+                foreach (var pessoa in pessoas)
+                {
+                    yield return pessoa;
+
+                    var pessoas2 = GetPessoasIndicacao(pessoa.Usuario, estabelecimentoId, nivel).ToList();
+                    foreach (var pessoa2 in pessoas2)
+                    {
+                        yield return pessoa2;
+                    }
+                }
+            }
         }
 
         public ActionResult Edit(int? id)

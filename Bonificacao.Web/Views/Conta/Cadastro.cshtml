@@ -21,7 +21,7 @@
 
         <div id="estabelecimento" class="form-group" style="display: none;">
             @Html.LabelFor(model => model.EstabelecimentoId)
-            @Html.DropDownListFor(model => model.EstabelecimentoId, (IEnumerable<SelectListItem>)ViewBag.Estabelecimentos, new { @class = "form-control", placeholder = "Estabelecimento" })
+            @Html.DropDownListFor(model => model.EstabelecimentoId, (IEnumerable<SelectListItem>)ViewBag.Estabelecimentos, "-- Selecione --", new { @class = "form-control", placeholder = "Estabelecimento" })
             @Html.ValidationMessageFor(model => model.EstabelecimentoId, "", new { @class = "text-danger" })
         </div>
 
@@ -67,12 +67,14 @@
 <script type="text/javascript">
 
     function estabelecimentoChanged() {
-        debugger
+        var tipoElement = "#@Html.IdFor(model => model.Tipo)";
 
-        if (this.val() === "3")
+        if ($(tipoElement).val() === "3")
             $("#estabelecimento").show();
-        else
+        else {
             $("#estabelecimento").hide();
+            $("#estabelecimento").find($('option')).attr('selected', false);
+        }
     }
 
     $(document).ready(function () {

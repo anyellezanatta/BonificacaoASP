@@ -14,7 +14,7 @@ namespace Bonificacao.Data
         DateTimeOffset? DataModificacao { get; set; }
     }
 
-    public enum TipoMovimento { Venda = 1, RecebimentoBonus = 1, DescontoBonus = 2, Ajustes = 3 }
+    public enum TipoMovimento { Venda = 1, RecebimentoBonus = 2/*, DescontoBonus = 3, Ajustes = 4*/ }
 
     public enum TipoPessoa { Cliente = 1, Administrador = 2, Vendedor = 3 }
 
@@ -35,6 +35,7 @@ namespace Bonificacao.Data
 
     public class Estabelecimento : EntityBase
     {
+        [Required]
         [Display(Name="Estabelecimento")]
         public string Nome { get; set; }
 
@@ -47,6 +48,7 @@ namespace Bonificacao.Data
 
     public class GrupoEstabelecimento : EntityBase
     {
+        [Required]
         [Display(Name = "Grupo")]
         public string Nome { get; set; }
         public virtual ICollection<Estabelecimento> Estabelecimentos { get; set; }
@@ -78,6 +80,7 @@ namespace Bonificacao.Data
 
     public class Produto : EntityBase
     {
+        [Required]
         [Display(Name = "Produto")]
         public string Nome { get; set; }
         [Display(Name = "Preço")]
@@ -97,7 +100,7 @@ namespace Bonificacao.Data
         public decimal ValorBonus { get; set; }
         public decimal SaldoBonus { get; set; }
         public decimal ValorPago { get; set; }
-        public DateTimeOffset DataHoraMovimento { get; set; }
+        public decimal ValorTotal { get; set; }
         public virtual Pessoa Cliente { get; set; }
         public virtual Estabelecimento Estabelecimento { get; set; }
         public virtual Pessoa Vendedor { get; set; }

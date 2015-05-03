@@ -37,7 +37,7 @@
                     </ul>
 
                     @*<p class="navbar-text navbar-right"><a href="#"><span style="font-size: 18px;" class="glyphicon glyphicon-cog" aria-hidden="true"></span></a></p>*@
-                    <p class="navbar-text navbar-right">@Html.ActionLink("logout", "Logout", "Conta", null, new { @class = "navbar-link" })</p>
+                    <p class="navbar-text navbar-right">@(User.Identity.Name) - @Html.ActionLink("logout", "Logout", "Conta", null, new { @class = "navbar-link" })</p>
                 </div>
             </div>
         </div>

@@ -92,6 +92,26 @@
     <Compile Include="Migrations\201504040352006_AdicionadaQuantidadeMovimento.Designer.cs">
       <DependentUpon>201504040352006_AdicionadaQuantidadeMovimento.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505032101358_NomeEstabelecimentoRequerido.cs" />
+    <Compile Include="Migrations\201505032101358_NomeEstabelecimentoRequerido.Designer.cs">
+      <DependentUpon>201505032101358_NomeEstabelecimentoRequerido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505032104462_NomeGrupoEstabelecimentoRequerido.cs" />
+    <Compile Include="Migrations\201505032104462_NomeGrupoEstabelecimentoRequerido.Designer.cs">
+      <DependentUpon>201505032104462_NomeGrupoEstabelecimentoRequerido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505032106433_NomeProdutoRequerido.cs" />
+    <Compile Include="Migrations\201505032106433_NomeProdutoRequerido.Designer.cs">
+      <DependentUpon>201505032106433_NomeProdutoRequerido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505032131367_AdicionadoCampoValorTotal.cs" />
+    <Compile Include="Migrations\201505032131367_AdicionadoCampoValorTotal.Designer.cs">
+      <DependentUpon>201505032131367_AdicionadoCampoValorTotal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505032137477_RemovidoDataHoraMovimento.cs" />
+    <Compile Include="Migrations\201505032137477_RemovidoDataHoraMovimento.Designer.cs">
+      <DependentUpon>201505032137477_RemovidoDataHoraMovimento.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Migrations\Utils\SHA256Generator.cs" />
@@ -133,6 +153,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201504040352006_AdicionadaQuantidadeMovimento.resx">
       <DependentUpon>201504040352006_AdicionadaQuantidadeMovimento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505032101358_NomeEstabelecimentoRequerido.resx">
+      <DependentUpon>201505032101358_NomeEstabelecimentoRequerido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505032104462_NomeGrupoEstabelecimentoRequerido.resx">
+      <DependentUpon>201505032104462_NomeGrupoEstabelecimentoRequerido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505032106433_NomeProdutoRequerido.resx">
+      <DependentUpon>201505032106433_NomeProdutoRequerido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505032131367_AdicionadoCampoValorTotal.resx">
+      <DependentUpon>201505032131367_AdicionadoCampoValorTotal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505032137477_RemovidoDataHoraMovimento.resx">
+      <DependentUpon>201505032137477_RemovidoDataHoraMovimento.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using System.Diagnostics;
+using System.Net;
 
 namespace Bonificacao.Web.Controllers
 {
@@ -30,6 +31,31 @@ namespace Bonificacao.Web.Controllers
                 });
 
             return View(usuarios);
+        }
+
+        public ActionResult DeletarUsuario(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Pessoa pessoa = Context.Pessoas.Find(id);
+            if (pessoa == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(pessoa);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeletarUsuario(int id)
+        {
+            Pessoa pessoa = Context.Pessoas.Find(id);
+            Context.Pessoas.Remove(pessoa);
+            Context.SaveChanges();
+            return RedirectToAction("Usuarios");
         }
 
         // GET: Conta/Login
