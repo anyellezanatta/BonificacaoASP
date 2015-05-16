@@ -94,5 +94,12 @@ namespace Bonificacao.Web.Controllers
             Context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        [OverrideAuthorization]
+        [AllowAnonymous]
+        public ViewResult Busca()
+        {
+            return View();
+        }
     }
 }

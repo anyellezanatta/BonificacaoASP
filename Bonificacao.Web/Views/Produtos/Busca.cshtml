@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busca</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.override.css" rel="stylesheet" type="text/css" />
+    <script>
+        function buscaXMLHttpRequest() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    debugger
+                }
+            }
+            xmlhttp.open("GET", "/api/produto?busca=" + document.getElementById("busca").value, true);
+            xmlhttp.setRequestHeader("Content-type", "application/json");
+            xmlhttp.send();
+        }
+    </script>
+</head>
+<body>
+    <div class="container body-content">
+        <input id="busca" type="search" class="form-control">
+        <button id="buscaBtn" class="btn btn-primary" onclick="buscaXMLHttpRequest()">Buscar</button>
+
+        <table id="result" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Gasolina</td>
+                    <td>3,45</td>
+                </tr>
+                <tr>
+                    <td>Alcool</td>
+                    <td>3,45</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script src="~/Scripts/jquery-2.1.3.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
