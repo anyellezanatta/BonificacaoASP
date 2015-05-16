@@ -19,9 +19,13 @@ namespace Bonificacao.Web.Controllers
         private BonificacaoContext db = new BonificacaoContext();
 
         // GET: api/Produto?busca=gasolina
-        public IHttpActionResult GetProduto(string busca)
+        public IQueryable GetProduto(string busca)
         {
-           return Ok(db.Produtos.Where(p => p.Nome.Contains(busca)));
+            IQueryable<Produto> produtos = db.Produtos;
+            if (!string.IsNullOrEmpty(busca))
+                produtos = produtos.Where(p => p.Nome.Contains(busca));
+
+            return produtos.Select(p => new { p.Nome, p.Preco });
         }
 
         protected override void Dispose(bool disposing)

@@ -12,19 +12,43 @@
             var xmlhttp = new XMLHttpRequest();
             xmlhttp.onreadystatechange = function () {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    debugger
+                    var data = JSON.parse(xmlhttp.responseText);
+                    generateTable(data);
                 }
             }
             xmlhttp.open("GET", "/api/produto?busca=" + document.getElementById("busca").value, true);
             xmlhttp.setRequestHeader("Content-type", "application/json");
             xmlhttp.send();
         }
+
+        function buscaJQuery() {
+            $.getJSON("/api/produto", {
+                busca: $("#busca").val()
+            }, function (data) {
+                var items = [];
+                $.each(data, function (key, val) {
+                    items.push('<tr><td>' + val.Nome + '</td><td>' + val.Preco + '</td></tr>');
+                });
+                $("#tablecontent").html("");
+                $(items.toString()).appendTo("#tablecontent");
+            });
+        }
+
+        function generateTable(data) {
+            var out = "";
+            var i;
+            for (i = 0; i < data.length; i++) {
+                out += '<tr><td>' + data[i].Nome + '</td><td>' + data[i].Preco + '</td></tr>';
+            }
+            document.getElementById("tablecontent").innerHTML = out;
+        }
     </script>
 </head>
 <body>
     <div class="container body-content">
         <input id="busca" type="search" class="form-control">
-        <button id="buscaBtn" class="btn btn-primary" onclick="buscaXMLHttpRequest()">Buscar</button>
+        <button class="btn btn-primary" onclick="buscaXMLHttpRequest()">Buscar com XMLHttpRequest</button>
+        <button class="btn btn-primary" onclick="buscaJQuery()">Buscar com jQuery</button>
 
         <table id="result" class="table table-hover">
             <thead>
@@ -33,16 +57,7 @@
                     <th>Preço</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Gasolina</td>
-                    <td>3,45</td>
-                </tr>
-                <tr>
-                    <td>Alcool</td>
-                    <td>3,45</td>
-                </tr>
-            </tbody>
+            <tbody id="tablecontent"></tbody>
         </table>
     </div>
 
