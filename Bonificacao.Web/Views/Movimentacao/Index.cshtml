@@ -1,70 +1,123 @@
 ﻿@model IEnumerable<Bonificacao.Data.Movimento>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Movimentações";
 }
 
-<h2>Index</h2>
+<h2>Movimentações</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Cliente.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Estabelecimento.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Produto.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Vendedor.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TipoMovimento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ValorBonus)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SaldoBonus)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ValorPago)
-        </th>
-        <th></th>
-    </tr>
+@if (Session["Tipo"] != null)
+{
+    if ((Bonificacao.Data.TipoPessoa)Session["Tipo"] == Bonificacao.Data.TipoPessoa.Vendedor)
+    {
+        <p>
+            @Html.ActionLink("Cadastrar", "Create")
+        </p>
+    }
+    else if ((Bonificacao.Data.TipoPessoa)Session["Tipo"] == Bonificacao.Data.TipoPessoa.Administrador)
+    {
+        using (Html.BeginForm("Index", "Movimentacao", FormMethod.Get, new { @class = "form-inline" }))
+        {
+            <div class="form-group">
+                <label for="clientes">Selecione</label>
+                @Html.ListBox("clientes", (IEnumerable<SelectListItem>)ViewBag.OpcoesClientes, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @*<label for="datainicio">Data início</label>*@
+                @Html.TextBox("datainicio", null, new { placeholder = "Data inicial", @class= "form-control" })
+            </div>
+            <div class="form-group">
+                @*<label for="datafim">Data fim</label>*@
+                @Html.TextBox("datafim", null, new { placeholder = "Data final", @class= "form-control" })
+            </div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Cliente.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Estabelecimento.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Produto.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Vendedor.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TipoMovimento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ValorBonus)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SaldoBonus)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ValorPago)
-        </td>
-    </tr>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        }
+    }
 }
 
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClienteId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstabelecimentoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProdutoId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VendedorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoMovimento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorBonus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SaldoBonus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ValorPago)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DataCriacao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cliente.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estabelecimento.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Produto.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vendedor.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoMovimento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorBonus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SaldoBonus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ValorPago)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataCriacao)
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#clientes').multiselect();
+            $('#datainicio').datepicker({
+                language: "pt-BR",
+                format: "dd/mm/yyyy"
+            });
+            $('#datafim').datepicker({
+                language: "pt-BR",
+                format: "dd/mm/yyyy"
+            });
+        });
+    </script>
+}

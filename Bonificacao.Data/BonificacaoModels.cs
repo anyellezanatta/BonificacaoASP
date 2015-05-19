@@ -21,7 +21,10 @@ namespace Bonificacao.Data
     public class EntityBase : IChangeTracker
     {
         public int Id { get; set; }
+        [Display(Name = "Data de criação")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy HH:mm:ss}", ApplyFormatInEditMode = true)]
         public DateTimeOffset DataCriacao { get; set; }
+        [Display(AutoGenerateField = false)]
         public DateTimeOffset? DataModificacao { get; set; }
     }
 
@@ -91,15 +94,28 @@ namespace Bonificacao.Data
 
     public class Movimento : EntityBase
     {
+        [Display(Name = "Movimento")]
         public TipoMovimento TipoMovimento { get; set; }
+        [Display(Name = "Cliente")]
         public int ClienteId { get; set; }
+        [Display(Name= "Estabelecimento")]
         public int EstabelecimentoId { get; set; }
-        public int VendedorId { get; set; }        
+        [Display(Name = "Vendedor")]
+        public int VendedorId { get; set; }
+        [Display(Name = "Produto")]
         public int ProdutoId { get; set; }
         public decimal Quantidade { get; set; }
+        [Display(Name = "Valor de bônus")]
+        [DisplayFormat(DataFormatString = "{0:c2}")]
         public decimal ValorBonus { get; set; }
+        [Display(Name = "Saldo de bônus")]
+        [DisplayFormat(DataFormatString = "{0:c2}")]
         public decimal SaldoBonus { get; set; }
+        [Display(Name = "Valor pago")]
+        [DisplayFormat(DataFormatString = "{0:c2}")]
         public decimal ValorPago { get; set; }
+        [Display(Name = "Valor total")]
+        [DisplayFormat(DataFormatString = "{0:c2}")]
         public decimal ValorTotal { get; set; }
         public virtual Pessoa Cliente { get; set; }
         public virtual Estabelecimento Estabelecimento { get; set; }

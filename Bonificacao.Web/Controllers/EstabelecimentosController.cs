@@ -11,7 +11,7 @@ using Bonificacao.Data;
 namespace Bonificacao.Web.Controllers
 {
     [Authorize]
-    public class EstabelecimentosController : Controller
+    public class EstabelecimentosController : ControllerBase
     {
         private BonificacaoContext db = new BonificacaoContext();
 

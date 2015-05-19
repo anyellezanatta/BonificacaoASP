@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -66,6 +67,8 @@ namespace Bonificacao.Web.Controllers
                     Context.Indicacoes.Add(indicacao);
                     Context.SaveChanges();
 
+                    var estabelecimento = Context.Estabelecimentos.Find(model.EstabelecimentoSelecionado.Value);
+
                     var usuarioEmail = ConfigurationManager.AppSettings["SendgridAccount"];
                     var senhaEmail = ConfigurationManager.AppSettings["SendgridKey"];
 
@@ -73,8 +76,8 @@ namespace Bonificacao.Web.Controllers
                         new MailAddress("anyelle.ad@gmail.com"),
                         new MailAddress[] { new MailAddress(model.Email) },
                         "Indicação de posto",
-                        "<p>Você foi indicado para abastecer no posto, clique <a href=\"" + Url.Action("Cadastro", "Conta", new { email = model.Email }, Request.Url.Scheme) + "\">aqui</a> para se cadastrar</p>",
-                        "Você foi indicado para abastecer no posto");
+                        "<p>Você foi indicado para abastecer no posto " + estabelecimento.Nome + ", clique <a href=\"" + Url.Action("Cadastro", "Conta", new { email = model.Email }, Request.Url.Scheme) + "\">aqui</a> para se cadastrar</p>",
+                        "Você foi indicado para abastecer no posto " + estabelecimento.Nome);
                     var client = new SendGrid.Web(new System.Net.NetworkCredential(usuarioEmail, senhaEmail));
                     client.Deliver(email);
                 }

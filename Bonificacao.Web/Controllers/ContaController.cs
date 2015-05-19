@@ -78,7 +78,10 @@ namespace Bonificacao.Web.Controllers
                     var senhaEncriptada = SHA256Generator.GetHash(loginModel.Senha);
                     var usuario = Context.Pessoas.FirstOrDefault(p => p.Usuario == loginModel.Usuario && p.Senha == senhaEncriptada);
                     if (usuario != null)
+                    {
                         FormsAuthentication.SetAuthCookie(loginModel.Usuario, loginModel.Lembrar);
+                        Session["Tipo"] = usuario.Tipo;
+                    }
                     else
                     {
                         ModelState.AddModelError("", "Usuário ou senha inválidos");
@@ -133,6 +136,7 @@ namespace Bonificacao.Web.Controllers
                     if (!User.Identity.IsAuthenticated)
                     {
                         FormsAuthentication.SetAuthCookie(loginModel.Email, false);
+                        Session["Tipo"] = pessoa.Tipo;
                         return RedirectToAction("Index", "Home");
                     }
                     else
@@ -156,6 +160,7 @@ namespace Bonificacao.Web.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
+            Session["Tipo"] = null;
             return RedirectToAction("Login");
         }
     }

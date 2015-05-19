@@ -7,16 +7,44 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Bonificacao.Data;
+using System.Globalization;
 
 namespace Bonificacao.Web.Controllers
 {
     [Authorize]
     public class MovimentacaoController : ControllerBase
     {
-        public ActionResult Index()
+        public ActionResult Index(int[] clientes = null, string datainicio = null, string datafim = null)
         {
-            var movimentos = Context.Movimentos.Include(m => m.Cliente).Include(m => m.Estabelecimento).Include(m => m.Produto).Include(m => m.Vendedor);
-            return View(movimentos.ToList());
+            var usuario = base.GetUsuario();
+            if (usuario == null)
+                return HttpNotFound();
+
+            var movimentos = Context.Movimentos
+                .Include(m => m.Cliente)
+                .Include(m => m.Estabelecimento)
+                .Include(m => m.Produto)
+                .Include(m => m.Vendedor);
+
+            if (usuario.Tipo == TipoPessoa.Cliente)
+                movimentos = movimentos.Where(e => e.ClienteId == usuario.Id);
+
+            if (clientes != null && clientes.Any())
+                movimentos = movimentos.Where(m => clientes.Contains(m.ClienteId));
+
+            if (datainicio != null && datafim != null)
+            {
+                var dataInicial = DateTimeOffset.Parse(datainicio, new CultureInfo("pt-BR"));
+                var dtFinal = DateTimeOffset.Parse(datafim, new CultureInfo("pt-BR"));
+                var dataFinal = new DateTimeOffset(dtFinal.Year, dtFinal.Month, dtFinal.Day, 23, 59, 59, dtFinal.Offset);
+                movimentos = movimentos.Where(m => m.DataCriacao >= dataInicial && m.DataCriacao <= dataFinal);
+            }
+
+            var opcoesClientes = Context.Pessoas.Where(e => e.Tipo == TipoPessoa.Cliente).OrderBy(e => e.Nome).ToList();
+            ViewBag.OpcoesClientes = new SelectList(opcoesClientes, "Id", "Nome");
+
+
+            return View(movimentos.OrderByDescending(e => e.DataCriacao).ToList());
         }
 
         public ActionResult Create()
@@ -90,8 +118,8 @@ namespace Bonificacao.Web.Controllers
                     if (ultimaMovimentacao != null)
                         saldoBonus = ultimaMovimentacao.SaldoBonus;
 
-                    var m = new Movimento() 
-                    { 
+                    var m = new Movimento()
+                    {
                         ClienteId = pessoa.Id,
                         VendedorId = movimento.VendedorId,
                         EstabelecimentoId = movimento.EstabelecimentoId,
