@@ -1,10 +1,6 @@
 ﻿@model IEnumerable<Bonificacao.Data.Movimento>
 
-@{
-    ViewBag.Title = "Movimentações";
-}
-
-<h2>Movimentações</h2>
+@{ Layout = null; }
 
 @if (Session["Tipo"] != null)
 {
@@ -23,12 +19,10 @@
                 @Html.ListBox("clientes", (IEnumerable<SelectListItem>)ViewBag.OpcoesClientes, new { @class = "form-control" })
             </div>
             <div class="form-group">
-                @*<label for="datainicio">Data início</label>*@
-                @Html.TextBox("datainicio", null, new { placeholder = "Data inicial", @class= "form-control" })
+                @Html.TextBox("datainicio", null, new { placeholder = "Data inicial", @class = "form-control" })
             </div>
             <div class="form-group">
-                @*<label for="datafim">Data fim</label>*@
-                @Html.TextBox("datafim", null, new { placeholder = "Data final", @class= "form-control" })
+                @Html.TextBox("datafim", null, new { placeholder = "Data final", @class = "form-control" })
             </div>
 
             <button type="submit" class="btn btn-primary">Buscar</button>
@@ -105,19 +99,3 @@
     </tbody>
 </table>
 
-@section Scripts
-{
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#clientes').multiselect();
-            $('#datainicio').datepicker({
-                language: "pt-BR",
-                format: "dd/mm/yyyy"
-            });
-            $('#datafim').datepicker({
-                language: "pt-BR",
-                format: "dd/mm/yyyy"
-            });
-        });
-    </script>
-}

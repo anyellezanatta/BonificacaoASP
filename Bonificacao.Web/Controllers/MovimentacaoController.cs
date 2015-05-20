@@ -14,6 +14,7 @@ namespace Bonificacao.Web.Controllers
     [Authorize]
     public class MovimentacaoController : ControllerBase
     {
+        [ChildActionOnly]
         public ActionResult Index(int[] clientes = null, string datainicio = null, string datafim = null)
         {
             var usuario = base.GetUsuario();
@@ -32,7 +33,7 @@ namespace Bonificacao.Web.Controllers
             if (clientes != null && clientes.Any())
                 movimentos = movimentos.Where(m => clientes.Contains(m.ClienteId));
 
-            if (datainicio != null && datafim != null)
+            if (!string.IsNullOrEmpty(datainicio) && !string.IsNullOrEmpty(datafim))
             {
                 var dataInicial = DateTimeOffset.Parse(datainicio, new CultureInfo("pt-BR"));
                 var dtFinal = DateTimeOffset.Parse(datafim, new CultureInfo("pt-BR"));
@@ -44,7 +45,7 @@ namespace Bonificacao.Web.Controllers
             ViewBag.OpcoesClientes = new SelectList(opcoesClientes, "Id", "Nome");
 
 
-            return View(movimentos.OrderByDescending(e => e.DataCriacao).ToList());
+            return PartialView(movimentos.OrderByDescending(e => e.DataCriacao).ToList());
         }
 
         public ActionResult Create()

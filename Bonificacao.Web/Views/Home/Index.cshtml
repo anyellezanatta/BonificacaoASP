@@ -1,29 +1,43 @@
 ﻿@model Bonificacao.Web.Models.HomeViewModel
-
 @{
     ViewBag.Title = "Home";
 }
-
 @switch (Model.TipoUsuario)
 {
     case Bonificacao.Data.TipoPessoa.Cliente:
         <p>
-            @Html.ActionLink("Indicações", "Index", "Indicacoes")
+            @{ Html.RenderAction("Index", "Indicacoes"); }
         </p>
         <p>
-            @Html.ActionLink("Movimentação", "Index", "Movimentacao")
+            @{ Html.RenderAction("Index", "Movimentacao"); }
         </p>
         break;
-    case Bonificacao.Data.TipoPessoa.Administrador:
+    case Bonificacao.Data.TipoPessoa.Administrador:        
         <p>
-            @Html.ActionLink("Movimentação", "Index", "Movimentacao")
+            @{ Html.RenderPartial("Index", "Movimentacao"); }
         </p>
         break;
     case Bonificacao.Data.TipoPessoa.Vendedor:
         <p>
-            @Html.ActionLink("Movimentação", "Create", "Movimentacao")
+            @{ Html.RenderAction("Create", "Movimentacao"); }
         </p>
         break;
     default:
         break;
+}
+@section Scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#clientes').multiselect();
+            $('#datainicio').datepicker({
+                language: "pt-BR",
+                format: "dd/mm/yyyy"
+            });
+            $('#datafim').datepicker({
+                language: "pt-BR",
+                format: "dd/mm/yyyy"
+            });
+        });
+    </script>
 }

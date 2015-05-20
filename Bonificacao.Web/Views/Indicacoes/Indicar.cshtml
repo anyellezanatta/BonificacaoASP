@@ -1,6 +1,6 @@
 ﻿@model Bonificacao.Web.Models.IndicacaoModel
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Indicar", "Indicacoes", FormMethod.Post, new { @class = "form-inline" }))
 {
     <div class="form-group">
         @Html.LabelFor(e => e.EstabelecimentoSelecionado)
