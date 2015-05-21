@@ -1,0 +1,31 @@
+﻿@model Bonificacao.Web.Models.BuscaMovimentacaoViewModel
+
+@{
+    <div class="padding-top">
+        @using (Ajax.BeginForm("Lista", "Movimentacao",
+        new AjaxOptions()
+        {
+            HttpMethod = "GET",
+            InsertionMode = InsertionMode.ReplaceWith,
+            UpdateTargetId = "movimentacoes"
+        }, new { @class = "form-inline" }))
+        {
+            <div class="form-group">
+                @Html.LabelFor(m => m.Clientes, "Clientes")
+                @Html.ListBoxFor(m => m.Clientes, Model.OpcoesClientes, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.DataInicio, "Data inicial")
+                @Html.TextBoxFor(m => m.DataInicio, null, new { placeholder = "Data inicial", @class = "form-control" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(m => m.DataFim, "Data final")
+                @Html.TextBoxFor(m => m.DataFim, null, new { placeholder = "Data final", @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Buscar</button>
+            </div>
+        }
+    </div>
+}

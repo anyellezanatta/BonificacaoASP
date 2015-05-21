@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Bonificacao.Data;
 using System.Globalization;
+using Bonificacao.Web.Models;
 
 namespace Bonificacao.Web.Controllers
 {
@@ -15,20 +16,34 @@ namespace Bonificacao.Web.Controllers
     public class MovimentacaoController : ControllerBase
     {
         [ChildActionOnly]
-        public ActionResult Index(int[] clientes = null, string datainicio = null, string datafim = null)
+        public ActionResult BuscaMovimentacao()
+        {
+            IQueryable<Pessoa> opcoesClientes = Context.Pessoas.Where(e => e.Tipo == TipoPessoa.Cliente);
+            var usuario = base.GetUsuario();
+            if (usuario.Tipo == TipoPessoa.Cliente)
+                opcoesClientes = opcoesClientes.Where(e => e.Id == usuario.Id);
+            var clientesList = opcoesClientes.OrderBy(e => e.Nome).ToList();
+
+            return PartialView("BuscaMovimentacao", 
+                new BuscaMovimentacaoViewModel() 
+                { 
+                    DataInicio = DateTime.Now.AddMonths(-1).ToString("dd/MM/yyyy"),
+                    DataFim = DateTime.Now.ToString("dd/MM/yyyy"),
+                    OpcoesClientes = new SelectList(clientesList, "Id", "Nome")
+                });
+        }
+
+        public ActionResult Lista(int[] clientes = null, string datainicio = null, string datafim = null)
         {
             var usuario = base.GetUsuario();
             if (usuario == null)
                 return HttpNotFound();
 
-            var movimentos = Context.Movimentos
+            IQueryable<Movimento> movimentos = Context.Movimentos
                 .Include(m => m.Cliente)
                 .Include(m => m.Estabelecimento)
                 .Include(m => m.Produto)
                 .Include(m => m.Vendedor);
-
-            if (usuario.Tipo == TipoPessoa.Cliente)
-                movimentos = movimentos.Where(e => e.ClienteId == usuario.Id);
 
             if (clientes != null && clientes.Any())
                 movimentos = movimentos.Where(m => clientes.Contains(m.ClienteId));
@@ -41,12 +56,18 @@ namespace Bonificacao.Web.Controllers
                 movimentos = movimentos.Where(m => m.DataCriacao >= dataInicial && m.DataCriacao <= dataFinal);
             }
 
-            var opcoesClientes = Context.Pessoas.Where(e => e.Tipo == TipoPessoa.Cliente).OrderBy(e => e.Nome).ToList();
-            ViewBag.OpcoesClientes = new SelectList(opcoesClientes, "Id", "Nome");
+            IQueryable<Pessoa> opcoesClientes = Context.Pessoas.Where(e => e.Tipo == TipoPessoa.Cliente);
+            if (usuario.Tipo == TipoPessoa.Cliente)
+            {
+                movimentos = movimentos.Where(e => e.ClienteId == usuario.Id);
+                opcoesClientes = opcoesClientes.Where(e => e.Id == usuario.Id);
+            }
 
+            var movimentacoes = movimentos.OrderByDescending(e => e.DataCriacao).ToList();
 
-            return PartialView(movimentos.OrderByDescending(e => e.DataCriacao).ToList());
+            return PartialView("Lista", movimentacoes);
         }
+
 
         public ActionResult Create()
         {

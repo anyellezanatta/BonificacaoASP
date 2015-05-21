@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Bonificacao.Web.Models.MinhaIndicacaoModel>
+
+@if (Model.Any())
+{
+    <div class="padding-top">
+        <ul class="fa-ul">
+            @foreach (var item in Model)
+            {
+                <li>
+                    <i class="fa-li fa fa-check-square"></i>
+                    <span class="bold-font">@Html.DisplayTextFor(e => item.Email)</span> para o estabelecimento <span class="bold-font">@Html.DisplayTextFor(e => item.Estabelecimento)</span>
+                </li>
+            }
+        </ul>
+    </div>
+}
+else
+{
+    <h5>Não há indicações :(</h5>
+}

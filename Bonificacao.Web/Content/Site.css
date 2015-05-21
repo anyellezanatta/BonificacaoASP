@@ -1,7 +1,57 @@
-﻿body {
+﻿@import url("http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&lang=en");
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 100;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 16px;
+}
+
+h4 {
+    font-size: 14px;
+}
+
+h5 {
+    font-size: 12px;
+}
+
+h6 {
+    font-size: 10px;
+}
+
+h3,
+h4,
+h5 {
+    margin-top: 5px;
+    font-weight: 600;
+}
+
+.bold-font {
+    font-weight: 700;
+}
+
+body {
     padding-top: 70px;
     padding-bottom: 20px;
-    background-color: #eee !important;
+    font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background-color: #f3f3f4;
+    font-size: 13px;
+    color: #676a6c;
+    overflow-x: hidden;
 }
 
 .body-content {
@@ -13,7 +63,7 @@ input,
 select,
 textarea,
 button {
-    max-width: 280px;
+    max-width: 300px;
 }
 
 * {
@@ -28,6 +78,17 @@ button {
 
 .error {
     color: #FF0000;
+}
+
+.middle-box {
+    max-width: 400px;
+    z-index: 100;
+    margin: 0 auto;
+    padding-top: 40px;
+}
+
+.loginscreen.middle-box {
+    width: 300px;
 }
 
 .centered-box {
@@ -72,4 +133,69 @@ button {
 
 .validation-summary-valid {
     display: none !important;
+}
+
+.padding-top {
+    padding-top: 10px;
+}
+
+.ibox {
+    clear: both;
+    margin-bottom: 25px;
+    margin-top: 0;
+    padding: 0;
+}
+
+    .ibox.collapsed .ibox-content {
+        display: none;
+    }
+
+    .ibox.collapsed .fa.fa-chevron-up:before {
+        content: "\f078";
+    }
+
+    .ibox.collapsed .fa.fa-chevron-down:before {
+        content: "\f077";
+    }
+
+    .ibox:after,
+    .ibox:before {
+        display: table;
+    }
+
+.ibox-title {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #ffffff;
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 4px 0px 0;
+    color: inherit;
+    margin-bottom: 0;
+    padding: 14px 15px 7px;
+    min-height: 48px;
+}
+
+.ibox-content {
+    background-color: #ffffff;
+    color: inherit;
+    padding: 15px 20px 20px 20px;
+    border-color: #e7eaec;
+    border-image: none;
+    border-style: solid solid none;
+    border-width: 1px 0px;
+}
+
+.middle-box h1 {
+  font-size: 170px;
+}
+.logo-name {
+  color: #e6e6e6;
+  font-size: 180px;
+  font-weight: 800;
+  letter-spacing: -10px;
+  margin-bottom: 0px;
 }

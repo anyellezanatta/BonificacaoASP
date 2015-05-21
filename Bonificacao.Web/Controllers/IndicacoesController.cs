@@ -15,14 +15,22 @@ namespace Bonificacao.Web.Controllers
     [Authorize]
     public class IndicacoesController : ControllerBase
     {
-        public ViewResult Index()
+        [ChildActionOnly]
+        public PartialViewResult MinhasIndicacoes()
         {
-            return View();
+            var pessoa = Context.Pessoas.FirstOrDefault(e => e.Usuario == User.Identity.Name);
+            if (pessoa != null)
+            {
+                return PartialView(pessoa.Indicacoes.Select(e => new MinhaIndicacaoModel { Email = e.EmailDestino, Estabelecimento = e.Estabelecimento.Nome }).ToList());
+            }
+            return PartialView();
         }
 
         [ChildActionOnly]
         public PartialViewResult Indicar()
         {
+            var model = new IndicacaoModel();
+
             ViewBag.Estabelecimentos = Context.Estabelecimentos
                 .ToList()
                 .OrderBy(e => e.Nome)
@@ -31,10 +39,10 @@ namespace Bonificacao.Web.Controllers
                     Text = e.Nome,
                     Value = e.Id.ToString()
                 });
-            return PartialView();
+
+            return PartialView(model);
         }
 
-        [ChildActionOnly]
         [HttpPost]
         public PartialViewResult Indicar(IndicacaoModel model)
         {
@@ -51,11 +59,12 @@ namespace Bonificacao.Web.Controllers
 
                 try
                 {
-                    var pessoa = Context.Pessoas.FirstOrDefault(e => e.Usuario == User.Identity.Name);
-                    if (pessoa.Usuario == model.Email)
+                    var pessoa = GetUsuario();
+                    var usuario = Context.Pessoas.FirstOrDefault(e => e.Usuario == model.Email);
+                    if (pessoa.Usuario == model.Email || usuario != null)
                     {
                         ModelState.AddModelError("Email", "Não foi possível indicar esse e-mail");
-                        return PartialView();
+                        return PartialView(model);
                     }
                     var indicacao = new Indicacao()
                     {
@@ -84,24 +93,14 @@ namespace Bonificacao.Web.Controllers
                 catch (DbUpdateException)
                 {
                     ModelState.AddModelError("Email", "Não foi possível indicar esse e-mail");
+                    return PartialView(model);
                 }
                 catch (Exception)
                 {
                 }
             }
 
-            return PartialView();
-        }
-
-        [ChildActionOnly]
-        public PartialViewResult MinhasIndicacoes()
-        {
-            var pessoa = Context.Pessoas.FirstOrDefault(e => e.Usuario == User.Identity.Name);
-            if (pessoa != null)
-            {
-                return PartialView(pessoa.Indicacoes.Select(e => new MinhaIndicacaoModel { Email = e.EmailDestino, Estabelecimento = e.Estabelecimento.Nome }).ToList());
-            }
-            return PartialView();
+            return PartialView(model);
         }
     }
 }
