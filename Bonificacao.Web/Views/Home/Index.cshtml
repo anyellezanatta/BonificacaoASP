@@ -59,27 +59,25 @@
                     </div>
                 </text>
                 break;
-            case Bonificacao.Data.TipoPessoa.Vendedor:
+            @*case Bonificacao.Data.TipoPessoa.Vendedor:
                 <text>
                     <div class="col-lg-12">
                         <div class="ibox">
                             <div class="ibox-content">
                                 <h2>Nova movimentação</h2>
                                 <small>Aqui você pode cadastrar novas movimentações para seus clientes</small>
-                                @{ Html.RenderAction("Create", "Movimentacao"); }
+                                @{ Html.RenderAction("Cadastrar", "Movimentacao"); }
                             </div>
                         </div>
                     </div>
                 </text>
-                break;
+                break;*@
             default: break;
         }
     }
 </div>
 
 @section Scripts {
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {

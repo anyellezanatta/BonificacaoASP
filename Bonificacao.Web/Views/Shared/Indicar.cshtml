@@ -1,12 +1,25 @@
 ﻿@model Bonificacao.Web.Models.IndicacaoModel
 
+<script type="text/javascript">
+    function reloadindicacoes() {
+        $.ajax({
+            url: "@Url.Action("MinhasIndicacoes", "Indicacoes")",
+            type: "GET",
+            success: function (result) {
+                $('#minhasindicacoes').html(result);
+            }
+        });
+    }
+</script>
+
 <div id="indicacao" class="padding-top">
     @using (Ajax.BeginForm("Indicar", "Indicacoes",
         new AjaxOptions()
         {
             HttpMethod = "POST",
             InsertionMode = InsertionMode.ReplaceWith,
-            UpdateTargetId = "indicacao"
+            UpdateTargetId = "indicacao",
+            OnSuccess = "reloadindicacoes"
         }))
     {
         <div class="form-group">

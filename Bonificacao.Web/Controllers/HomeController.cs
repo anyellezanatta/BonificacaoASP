@@ -19,6 +19,8 @@ namespace Bonificacao.Web.Controllers
     {
         public ActionResult Index()
         {
+            if (GetTipoUsuario() == TipoPessoa.Vendedor)
+                return RedirectToAction("Cadastrar", "Movimentacao");
             return View();
         }
 

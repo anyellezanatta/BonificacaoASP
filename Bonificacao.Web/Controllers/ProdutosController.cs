@@ -28,7 +28,7 @@ namespace Bonificacao.Web.Controllers
         // POST: Produtos/Cadastrar
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Cadastrar([Bind(Include = "Id,Nome,Preco,DataCriacao,DataModificacao")] Produto produto)
+        public ActionResult Cadastrar(Produto produto)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +58,7 @@ namespace Bonificacao.Web.Controllers
         // POST: Produtos/Editar/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Editar([Bind(Include = "Id,Nome,Preco,DataCriacao,DataModificacao")] Produto produto)
+        public ActionResult Editar(Produto produto)
         {
             if (ModelState.IsValid)
             {

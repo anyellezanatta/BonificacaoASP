@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Bonificacao.Web.Controllers
 {
-    public class ControllerBase : Controller
+    public abstract class ControllerBase : Controller
     {
         protected readonly BonificacaoContext Context = new BonificacaoContext();
 
@@ -21,6 +21,15 @@ namespace Bonificacao.Web.Controllers
         {
             var usuario = GetUsuario();
             return usuario != null ? usuario.Tipo : TipoPessoa.Cliente;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                Context.Dispose();
+            }
+            base.Dispose(disposing);
         }
     }
 }

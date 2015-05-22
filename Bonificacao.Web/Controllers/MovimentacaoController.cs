@@ -68,8 +68,7 @@ namespace Bonificacao.Web.Controllers
             return PartialView("Lista", movimentacoes);
         }
 
-
-        public ActionResult Create()
+        public ActionResult Cadastrar()
         {
             ViewBag.ClienteId = new SelectList(Context.Pessoas.Where(e => e.Tipo == TipoPessoa.Cliente), "Id", "Nome");
             ViewBag.EstabelecimentoId = new SelectList(Context.Estabelecimentos, "Id", "Nome");
@@ -79,7 +78,7 @@ namespace Bonificacao.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Movimento movimento)
+        public ActionResult Cadastrar(Movimento movimento)
         {
             if (ModelState.IsValid)
             {
@@ -157,7 +156,7 @@ namespace Bonificacao.Web.Controllers
                 }
 
                 Context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Cadastrar");
             }
 
             ViewBag.ClienteId = new SelectList(Context.Pessoas.Where(e => e.Tipo == TipoPessoa.Cliente), "Id", "Nome");
@@ -186,41 +185,6 @@ namespace Bonificacao.Web.Controllers
                     }
                 }
             }
-        }
-
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Movimento movimento = Context.Movimentos.Find(id);
-            if (movimento == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ClienteId = new SelectList(Context.Pessoas, "Id", "Nome", movimento.ClienteId);
-            ViewBag.EstabelecimentoId = new SelectList(Context.Estabelecimentos, "Id", "Nome", movimento.EstabelecimentoId);
-            ViewBag.ProdutoId = new SelectList(Context.Produtos, "Id", "Nome", movimento.ProdutoId);
-            ViewBag.VendedorId = new SelectList(Context.Pessoas, "Id", "Nome", movimento.VendedorId);
-            return View(movimento);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,TipoMovimento,ClienteId,EstabelecimentoId,VendedorId,ProdutoId,ValorBonus,SaldoBonus,ValorPago,DataHoraMovimento,DataCriacao,DataModificacao")] Movimento movimento)
-        {
-            if (ModelState.IsValid)
-            {
-                Context.Entry(movimento).State = EntityState.Modified;
-                Context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ClienteId = new SelectList(Context.Pessoas, "Id", "Nome", movimento.ClienteId);
-            ViewBag.EstabelecimentoId = new SelectList(Context.Estabelecimentos, "Id", "Nome", movimento.EstabelecimentoId);
-            ViewBag.ProdutoId = new SelectList(Context.Produtos, "Id", "Nome", movimento.ProdutoId);
-            ViewBag.VendedorId = new SelectList(Context.Pessoas, "Id", "Nome", movimento.VendedorId);
-            return View(movimento);
         }
     }
 }

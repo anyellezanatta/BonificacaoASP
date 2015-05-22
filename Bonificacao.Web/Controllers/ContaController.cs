@@ -58,7 +58,6 @@ namespace Bonificacao.Web.Controllers
             return RedirectToAction("Usuarios");
         }
 
-        // GET: Conta/Login
         public ActionResult Login()
         {
             if (User.Identity.IsAuthenticated)
@@ -67,7 +66,6 @@ namespace Bonificacao.Web.Controllers
             return View();
         }
 
-        // POST: Conta/Login
         [HttpPost]
         public ActionResult Login(LoginModel loginModel)
         {
@@ -99,7 +97,6 @@ namespace Bonificacao.Web.Controllers
             return View(loginModel);
         }
 
-        // GET: Conta/Cadastro
         public ActionResult Cadastro(string email = null)
         {
             ViewBag.Estabelecimentos = new SelectList(Context.Estabelecimentos.ToList(), "Id", "Nome");
@@ -107,7 +104,6 @@ namespace Bonificacao.Web.Controllers
             return View(new CadastroModel() { Email = email, TipoUsuario = GetTipoUsuario() });
         }
 
-        // POST: Conta/Cadastro
         [HttpPost]
         public ActionResult Cadastro(CadastroModel loginModel)
         {

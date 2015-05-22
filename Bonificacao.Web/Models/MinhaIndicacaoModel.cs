@@ -9,5 +9,6 @@ namespace Bonificacao.Web.Models
     {
         public string Email { get; set; }
         public string Estabelecimento { get; set; }
+        public string Data { get; set; }
     }
 }

@@ -63,26 +63,26 @@
     </div>
 </div>
 
-<script src="~/Scripts/jquery-2.1.3.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-<script type="text/javascript">
+@section Scripts
+{
+    <script type="text/javascript">
 
-    function estabelecimentoChanged() {
-        var tipoElement = "#@Html.IdFor(model => model.Tipo)";
+        function estabelecimentoChanged() {
+            var tipoElement = "#@Html.IdFor(model => model.Tipo)";
 
-        if ($(tipoElement).val() === "3")
-            $("#estabelecimento").show();
-        else {
-            $("#estabelecimento").hide();
-            $("#estabelecimento").find($('option')).attr('selected', false);
+            if ($(tipoElement).val() === "3")
+                $("#estabelecimento").show();
+            else {
+                $("#estabelecimento").hide();
+                $("#estabelecimento").find($('option')).attr('selected', false);
+            }
         }
-    }
 
-    $(document).ready(function () {
-        var tipoElement = "#@Html.IdFor(model => model.Tipo)";
+        $(document).ready(function () {
+            var tipoElement = "#@Html.IdFor(model => model.Tipo)";
 
-        estabelecimentoChanged();
-        $(tipoElement).change(estabelecimentoChanged);
-    });
-</script>
+            estabelecimentoChanged();
+            $(tipoElement).change(estabelecimentoChanged);
+        });
+    </script>
+}

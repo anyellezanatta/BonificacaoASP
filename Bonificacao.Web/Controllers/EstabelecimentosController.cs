@@ -13,36 +13,31 @@ namespace Bonificacao.Web.Controllers
     [Authorize]
     public class EstabelecimentosController : ControllerBase
     {
-        private BonificacaoContext db = new BonificacaoContext();
-
         // GET: Estabelecimentos
         public ActionResult Index()
         {
-            var estabelecimentos = db.Estabelecimentos.Include(e => e.GrupoEstabelecimento);
+            var estabelecimentos = Context.Estabelecimentos.Include(e => e.GrupoEstabelecimento);
             return View(estabelecimentos.ToList());
         }
         
         public ActionResult Cadastrar()
         {
-            ViewBag.GrupoEstabelecimentoId = new SelectList(db.GruposEstabelecimento, "Id", "Nome");
+            ViewBag.GrupoEstabelecimentoId = new SelectList(Context.GruposEstabelecimento, "Id", "Nome");
             return View();
         }
 
-        // POST: Estabelecimentos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Cadastrar([Bind(Include = "Id,Nome,GrupoEstabelecimentoId,DataCriacao,DataModificacao")] Estabelecimento estabelecimento)
+        public ActionResult Cadastrar(Estabelecimento estabelecimento)
         {
             if (ModelState.IsValid)
             {
-                db.Estabelecimentos.Add(estabelecimento);
-                db.SaveChanges();
+                Context.Estabelecimentos.Add(estabelecimento);
+                Context.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.GrupoEstabelecimentoId = new SelectList(db.GruposEstabelecimento, "Id", "Nome", estabelecimento.GrupoEstabelecimentoId);
+            ViewBag.GrupoEstabelecimentoId = new SelectList(Context.GruposEstabelecimento, "Id", "Nome", estabelecimento.GrupoEstabelecimentoId);
             return View(estabelecimento);
         }
 
@@ -53,12 +48,12 @@ namespace Bonificacao.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Estabelecimento estabelecimento = db.Estabelecimentos.Find(id);
+            Estabelecimento estabelecimento = Context.Estabelecimentos.Find(id);
             if (estabelecimento == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.GrupoEstabelecimentoId = new SelectList(db.GruposEstabelecimento, "Id", "Nome", estabelecimento.GrupoEstabelecimentoId);
+            ViewBag.GrupoEstabelecimentoId = new SelectList(Context.GruposEstabelecimento, "Id", "Nome", estabelecimento.GrupoEstabelecimentoId);
             return View(estabelecimento);
         }
 
@@ -69,11 +64,11 @@ namespace Bonificacao.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(estabelecimento).State = EntityState.Modified;
-                db.SaveChanges();
+                Context.Entry(estabelecimento).State = EntityState.Modified;
+                Context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.GrupoEstabelecimentoId = new SelectList(db.GruposEstabelecimento, "Id", "Nome", estabelecimento.GrupoEstabelecimentoId);
+            ViewBag.GrupoEstabelecimentoId = new SelectList(Context.GruposEstabelecimento, "Id", "Nome", estabelecimento.GrupoEstabelecimentoId);
             return View(estabelecimento);
         }
 
@@ -84,7 +79,7 @@ namespace Bonificacao.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Estabelecimento estabelecimento = db.Estabelecimentos.Find(id);
+            Estabelecimento estabelecimento = Context.Estabelecimentos.Find(id);
             if (estabelecimento == null)
             {
                 return HttpNotFound();
@@ -97,19 +92,10 @@ namespace Bonificacao.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Estabelecimento estabelecimento = db.Estabelecimentos.Find(id);
-            db.Estabelecimentos.Remove(estabelecimento);
-            db.SaveChanges();
+            Estabelecimento estabelecimento = Context.Estabelecimentos.Find(id);
+            Context.Estabelecimentos.Remove(estabelecimento);
+            Context.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

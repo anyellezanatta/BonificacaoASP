@@ -13,13 +13,9 @@ namespace Bonificacao.Web.Controllers
     [Authorize]
     public class ConfiguracoesController : ControllerBase
     {
-        private BonificacaoContext db = new BonificacaoContext();
-
-    
-        // GET: Configuracoes/Editar1-
-        public ActionResult Editar()
+        public ActionResult Index()
         {
-            Configuracao configuracao = db.Configuracoes.FirstOrDefault();
+            Configuracao configuracao = Context.Configuracoes.FirstOrDefault();
             if (configuracao == null)
             {
                 return HttpNotFound();
@@ -27,32 +23,17 @@ namespace Bonificacao.Web.Controllers
             return View(configuracao);
         }
 
-
-
-        // POST: Configuracoes/Editar2
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Editar([Bind(Include = "Id,BonusPorLitro,NivelBonificacao,DataCriacao,DataModificacao")] Configuracao configuracao)
+        public ActionResult Index(Configuracao configuracao)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(configuracao).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index","Home");
-                // Direciona pro index do controller home
+                Context.Entry(configuracao).State = EntityState.Modified;
+                Context.SaveChanges();
+                return RedirectToAction("Index", "Home");
             }
             return View(configuracao);
-        }
-
-
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

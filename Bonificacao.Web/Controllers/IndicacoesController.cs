@@ -15,13 +15,22 @@ namespace Bonificacao.Web.Controllers
     [Authorize]
     public class IndicacoesController : ControllerBase
     {
-        [ChildActionOnly]
         public PartialViewResult MinhasIndicacoes()
         {
-            var pessoa = Context.Pessoas.FirstOrDefault(e => e.Usuario == User.Identity.Name);
+            var pessoa = GetUsuario();
             if (pessoa != null)
             {
-                return PartialView(pessoa.Indicacoes.Select(e => new MinhaIndicacaoModel { Email = e.EmailDestino, Estabelecimento = e.Estabelecimento.Nome }).ToList());
+                var indicacoes = pessoa.Indicacoes
+                    .OrderByDescending(e => e.DataCriacao)
+                    .Select(e =>
+                    new MinhaIndicacaoModel
+                    {
+                        Email = e.EmailDestino,
+                        Estabelecimento = e.Estabelecimento.Nome,
+                        Data = e.DataCriacao.ToString("dd/MM/yyyy")
+                    }).ToList();
+
+                return PartialView(indicacoes);
             }
             return PartialView();
         }
@@ -46,9 +55,7 @@ namespace Bonificacao.Web.Controllers
         [HttpPost]
         public PartialViewResult Indicar(IndicacaoModel model)
         {
-            if (ModelState.IsValid)
-            {
-                ViewBag.Estabelecimentos = Context.Estabelecimentos
+            ViewBag.Estabelecimentos = Context.Estabelecimentos
                     .ToList()
                     .OrderBy(e => e.Nome)
                     .Select(e => new SelectListItem()
@@ -57,6 +64,8 @@ namespace Bonificacao.Web.Controllers
                         Value = e.Id.ToString()
                     });
 
+            if (ModelState.IsValid)
+            {
                 try
                 {
                     var pessoa = GetUsuario();
@@ -100,7 +109,7 @@ namespace Bonificacao.Web.Controllers
                 }
             }
 
-            return PartialView(model);
+            return PartialView();
         }
     }
 }
