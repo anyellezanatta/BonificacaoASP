@@ -1,9 +1,5 @@
 ﻿@model Bonificacao.Web.Models.LoginModel
-
-@{
-    ViewBag.Title = "Login";
-}
-
+@{ ViewBag.Title = "Login"; }
 
 <div class="middle-box loginscreen">
     <div>
@@ -13,7 +9,6 @@
                 <h3>Bonificação</h3>
             </div>
         </div>
-
         @using (Html.BeginForm("login", "conta", FormMethod.Post))
         {
             @Html.AntiForgeryToken()

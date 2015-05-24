@@ -355,6 +355,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlHelpers\PanelHelpers.cs" />
     <Compile Include="Models\BuscaMovimentacaoViewModel.cs" />
     <Compile Include="Models\CadastroModel.cs" />
     <Compile Include="Models\HomeViewModel.cs" />
@@ -397,6 +398,7 @@
     <Content Include="Views\Produtos\Busca.cshtml" />
     <Content Include="Views\Shared\Lista.cshtml" />
     <Content Include="Views\Shared\BuscaMovimentacao.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

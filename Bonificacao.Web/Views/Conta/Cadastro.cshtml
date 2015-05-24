@@ -1,12 +1,9 @@
 ﻿@model Bonificacao.Web.Models.CadastroModel
-
-@{
-    ViewBag.Title = "Cadastro";
-}
+@{ ViewBag.Title = "Cadastro"; }
 
 <div class="middle-box loginscreen">
     <div>
-        @using (Html.BeginForm("cadastro", "conta", FormMethod.Post))
+        @using (Html.BeginForm("Cadastro", "Conta", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
             <h2>Cadastro</h2>

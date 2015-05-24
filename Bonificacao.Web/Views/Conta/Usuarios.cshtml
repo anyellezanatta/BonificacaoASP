@@ -1,50 +1,34 @@
 ﻿@model IEnumerable<Bonificacao.Web.Models.UsuarioModel>
+@{ ViewBag.Title = "Usuários"; }
 
-@{
-    ViewBag.Title = "Usuários";
-}
-
-<h2>Usuários</h2>
-
-<p>
-    @Html.ActionLink("Cadastrar", "Cadastro", "Conta")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tipo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Estabelecimento)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tipo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estabelecimento)
-            </td>
-            <td>
-                @Html.ActionLink("Deletar", "DeletarUsuario", "Conta", new { id = item.Id }, null)
-            </td>
-        </tr>
-    }
-
-</table>
+@Html.Box("Usuários", "Lista de usuários do sistema",
+    @<text>
+        <p>
+            @Html.ActionLink("Cadastrar", "Cadastro", "Conta")
+        </p>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Nome)</th>
+                        <th>@Html.DisplayNameFor(model => model.Email)</th>
+                        <th>@Html.DisplayNameFor(model => model.Tipo)</th>
+                        <th>@Html.DisplayNameFor(model => model.Estabelecimento)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var it in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => it.Nome)</td>
+                            <td>@Html.DisplayFor(modelItem => it.Email)</td>
+                            <td>@Html.DisplayFor(modelItem => it.Tipo)</td>
+                            <td>@Html.DisplayFor(modelItem => it.Estabelecimento)</td>
+                            <td>@Html.ActionLink("Deletar", "DeletarUsuario", "Conta", new { id = it.Id }, null)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </text>)

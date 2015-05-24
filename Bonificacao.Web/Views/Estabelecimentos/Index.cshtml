@@ -1,38 +1,33 @@
 ﻿@model IEnumerable<Bonificacao.Data.Estabelecimento>
+@{ ViewBag.Title = "Estabelecimentos"; }
 
-@{
-    ViewBag.Title = "Estabelecimentos";
-}
-
-<h2>Estabelecimentos</h2>
-
-<p>
-    @Html.ActionLink("Cadastrar", "Cadastrar")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GrupoEstabelecimento.Nome)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GrupoEstabelecimento.Nome)
-            </td>
-            <td>
-                @Html.ActionLink("Editar", "Editar", new { id = item.Id }) |
-                @Html.ActionLink("Deletar", "Deletar", new { id = item.Id })
-            </td>
-        </tr>
-    }
-</table>
+@Html.Box("Lista de Estabelecimentos", "Aqui você pode gerenciar os estabelecimentos do sistema",
+    @<text>
+        <p>
+            @Html.ActionLink("Cadastrar", "Cadastrar")
+        </p>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Nome)</th>
+                        <th>@Html.DisplayNameFor(model => model.GrupoEstabelecimento.Nome)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var it in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => it.Nome)</td>
+                            <td>@Html.DisplayFor(modelItem => it.GrupoEstabelecimento.Nome)</td>
+                            <td>
+                                @Html.ActionLink("Editar", "Editar", new { id = it.Id }) |
+                                @Html.ActionLink("Deletar", "Deletar", new { id = it.Id })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </text>)

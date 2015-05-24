@@ -1,35 +1,29 @@
 ﻿@model IEnumerable<Bonificacao.Data.GrupoEstabelecimento>
+@{ ViewBag.Title = "Grupos de estabelecimento"; }
 
-@{
-    ViewBag.Title = "Grupos de estabelecimento";
-}
-
-<h2>Grupos de estabelecimento</h2>
-
-<p>
-    @Html.ActionLink("Cadastrar", "Cadastrar")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-
-            <td>
-                @Html.ActionLink("Editar", "Editar", new { id = item.Id }) |
-                @Html.ActionLink("Deletar", "Deletar", new { id = item.Id })
-            </td>
-        </tr>
-    }
-
-</table>
+@Html.Box("Lista de Grupos", "Aqui você pode gerenciar os grupos de estabelecimentos do sistema",
+    @<text>
+        <p>@Html.ActionLink("Cadastrar", "Cadastrar")</p>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Nome)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var it in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => it.Nome)</td>
+                            <td>
+                                @Html.ActionLink("Editar", "Editar", new { id = it.Id }) |
+                                @Html.ActionLink("Deletar", "Deletar", new { id = it.Id })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </text>)
