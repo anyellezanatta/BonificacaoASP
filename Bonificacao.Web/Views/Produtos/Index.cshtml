@@ -22,7 +22,7 @@
                             <td>@Html.DisplayFor(modelItem => it.Nome)</td>
                             <td>@Html.DisplayFor(modelItem => it.Preco)</td>
                             <td>
-                                @Html.ActionLink("Editar", "Editar", new { id = it.Id }) | @Html.ActionLink("Deletar", "Deletar", new { id = it.Id })
+                                @Html.ActionLink("Editar", "Editar", new { id = it.Id }) | @Helpers.Delete("Produtos", "Deletar", it.Id)
                             </td>
                         </tr>
                     }

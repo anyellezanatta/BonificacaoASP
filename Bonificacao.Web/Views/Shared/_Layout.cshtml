@@ -11,6 +11,25 @@
     <link href="~/Content/bootstrap-datepicker3.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/iCheck/square/blue.css" rel="stylesheet" />
+
+    <script src="~/Scripts/jquery-2.1.3.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-multiselect.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+    <script src="~/Scripts/locales/bootstrap-datepicker.pt-BR.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery.icheck.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
+    </script>
+    @RenderSection("Scripts", false)
 </head>
 <body>
     @if (User.Identity.IsAuthenticated)
@@ -49,24 +68,5 @@
     <div class="container body-content">
         @RenderBody()
     </div>
-
-    <script src="~/Scripts/jquery-2.1.3.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/Scripts/bootstrap-multiselect.js"></script>
-    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
-    <script src="~/Scripts/locales/bootstrap-datepicker.pt-BR.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-    <script src="~/Scripts/jquery.icheck.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('input').iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue',
-                increaseArea: '20%' // optional
-            });
-        });
-    </script>
-    @RenderSection("Scripts", false)
 </body>
 </html>

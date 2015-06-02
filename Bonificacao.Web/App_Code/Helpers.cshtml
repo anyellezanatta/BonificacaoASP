@@ -1,0 +1,37 @@
+﻿@helper Delete(string controller, string action, int id)
+{
+    var elementId = Guid.NewGuid().ToString("n");
+
+    <a href="#" data-toggle="modal" data-target="#@(elementId)">Deletar</a>
+    <div class="modal fade" id="@(elementId)" tabindex="-1" role="dialog" aria-labelledby="@(elementId)Label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="@(elementId)Label">Deletar</h4>
+                </div>
+                <div class="modal-body">
+                    Deseja deletar esse item?
+                    
+                </div>
+                <div class="modal-footer">
+                    <button id="@(elementId)Button" type="button" class="btn btn-primary">Sim</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Não</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $("#@(elementId)Button").on('click', function (e) {
+            $.ajax({
+                url: "/@(controller)/@(action)",
+                data: "id=@id",
+                type: "POST",
+                success: function (result) {
+                    $("#@(elementId)").modal('hide');
+                }
+            });
+        });
+    </script>
+}

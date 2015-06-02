@@ -69,30 +69,23 @@ namespace Bonificacao.Web.Controllers
             return View(produto);
         }
 
-        // GET: Produtos/Delete/5
-        public ActionResult Deletar(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Produto produto = Context.Produtos.Find(id);
-            if (produto == null)
-            {
-                return HttpNotFound();
-            }
-            return View(produto);
-        }
-
         // POST: Produtos/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public ActionResult Deletar(int id)
         {
-            Produto produto = Context.Produtos.Find(id);
-            Context.Produtos.Remove(produto);
-            Context.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Produto produto = Context.Produtos.Find(id);
+                Context.Produtos.Remove(produto);
+                Context.SaveChanges();
+
+                return Content("Item deletado com sucesso");
+            }
+            catch (Exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
 
         [OverrideAuthorization]
