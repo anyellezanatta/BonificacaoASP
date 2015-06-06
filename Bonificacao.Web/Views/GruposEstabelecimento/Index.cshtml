@@ -18,8 +18,7 @@
                         <tr>
                             <td>@Html.DisplayFor(modelItem => it.Nome)</td>
                             <td>
-                                @Html.ActionLink("Editar", "Editar", new { id = it.Id }) |
-                                @Html.ActionLink("Deletar", "Deletar", new { id = it.Id })
+                                @Html.ActionLink("Editar", "Editar", new { id = it.Id }) | @Helpers.Delete("GruposEstabelecimento", "Deletar", it.Id)
                             </td>
                         </tr>
                     }

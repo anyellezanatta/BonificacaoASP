@@ -25,7 +25,8 @@
                             <td>@Html.DisplayFor(modelItem => it.Email)</td>
                             <td>@Html.DisplayFor(modelItem => it.Tipo)</td>
                             <td>@Html.DisplayFor(modelItem => it.Estabelecimento)</td>
-                            <td>@Html.ActionLink("Deletar", "DeletarUsuario", "Conta", new { id = it.Id }, null)</td>
+                            <td>@Helpers.Delete("Conta", "DeletarUsuario", it.Id)</td>
+                            @*<td>@Html.ActionLink("Deletar", "DeletarUsuario", "Conta", new { id = it.Id }, null)</td>*@
                         </tr>
                     }
                 </tbody>

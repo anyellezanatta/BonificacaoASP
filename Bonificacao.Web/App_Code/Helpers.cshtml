@@ -12,7 +12,7 @@
                 </div>
                 <div class="modal-body">
                     Deseja deletar esse item?
-                    
+                    <div class="field-validation-error" id="@(elementId)error"></div>
                 </div>
                 <div class="modal-footer">
                     <button id="@(elementId)Button" type="button" class="btn btn-primary">Sim</button>
@@ -23,13 +23,22 @@
     </div>
 
     <script>
+        $("#@(elementId)").on("show.bs.modal", function (event) {
+            var modal = $(this);
+            modal.find('#@(elementId)error').html("");
+        })
+
         $("#@(elementId)Button").on('click', function (e) {
             $.ajax({
                 url: "/@(controller)/@(action)",
                 data: "id=@id",
                 type: "POST",
+                error: function (result) {
+                    $("#@(elementId)error").html("Não foi possível remover o item");
+                },
                 success: function (result) {
                     $("#@(elementId)").modal('hide');
+                    location.reload();
                 }
             });
         });
