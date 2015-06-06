@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Bonificacao.Data.Estabelecimento>
 @{ ViewBag.Title = "Estabelecimentos"; }
 
-@Html.Box("Lista de Estabelecimentos", "Aqui você pode gerenciar os estabelecimentos do sistema",
+@*@Html.Box("Lista de Estabelecimentos", "Aqui você pode gerenciar os estabelecimentos do sistema",
     @<text>
         <p>
             @Html.ActionLink("Cadastrar", "Cadastrar")
@@ -29,4 +29,38 @@
                 </tbody>
             </table>
         </div>
+    </text>)*@
+
+
+@(Html.MyBox()
+    .Title("Lista de Estabelecimentos")
+    .Description("Aqui você pode gerenciar os estabelecimentos do sistema")
+    .Content(@<text>
+        <p>
+            @Html.ActionLink("Cadastrar", "Cadastrar")
+        </p>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Nome)</th>
+                        <th>@Html.DisplayNameFor(model => model.GrupoEstabelecimento.Nome)</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var it in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => it.Nome)</td>
+                            <td>@Html.DisplayFor(modelItem => it.GrupoEstabelecimento.Nome)</td>
+                            <td>
+                                @Html.ActionLink("Editar", "Editar", new { id = it.Id }) | @Helpers.Delete("Estabelecimentos", "Deletar", it.Id)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </text>)
+)
