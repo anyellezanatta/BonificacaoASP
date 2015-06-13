@@ -11,6 +11,12 @@ namespace Bonificacao.Web.Controllers
     {
         protected readonly BonificacaoContext Context = new BonificacaoContext();
 
+        protected override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+            ViewBag.TipoUsuario = GetTipoUsuario();
+            base.OnActionExecuting(filterContext);
+        }
+
         protected Pessoa GetUsuario()
         {
             var usuario = Context.Pessoas.FirstOrDefault(e => e.Usuario == User.Identity.Name);

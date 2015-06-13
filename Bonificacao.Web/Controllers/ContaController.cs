@@ -78,7 +78,6 @@ namespace Bonificacao.Web.Controllers
                     if (usuario != null)
                     {
                         FormsAuthentication.SetAuthCookie(loginModel.Usuario, loginModel.Lembrar);
-                        Session["Tipo"] = usuario.Tipo;
                     }
                     else
                     {
@@ -132,7 +131,6 @@ namespace Bonificacao.Web.Controllers
                     if (!User.Identity.IsAuthenticated)
                     {
                         FormsAuthentication.SetAuthCookie(loginModel.Email, false);
-                        Session["Tipo"] = pessoa.Tipo;
                         return RedirectToAction("Index", "Home");
                     }
                     else
@@ -156,7 +154,6 @@ namespace Bonificacao.Web.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            Session["Tipo"] = null;
             return RedirectToAction("Login");
         }
     }

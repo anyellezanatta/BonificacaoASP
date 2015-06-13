@@ -69,30 +69,22 @@ namespace Bonificacao.Web.Controllers
             return View(grupoEstabelecimento);
         }
 
-        // GET: GruposEstabelecimento/Deletar/5
-        public ActionResult Deletar(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            GrupoEstabelecimento grupoEstabelecimento = Context.GruposEstabelecimento.Find(id);
-            if (grupoEstabelecimento == null)
-            {
-                return HttpNotFound();
-            }
-            return View(grupoEstabelecimento);
-        }
-
         // POST: GruposEstabelecimento/Deletar/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Deletar(int id)
         {
-            GrupoEstabelecimento grupoEstabelecimento = Context.GruposEstabelecimento.Find(id);
-            Context.GruposEstabelecimento.Remove(grupoEstabelecimento);
-            Context.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                GrupoEstabelecimento grupoEstabelecimento = Context.GruposEstabelecimento.Find(id);
+                Context.GruposEstabelecimento.Remove(grupoEstabelecimento);
+                Context.SaveChanges();
+
+                return Content("Item removido com sucesso");
+            }
+            catch (Exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
     }
 }

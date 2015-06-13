@@ -71,7 +71,6 @@ namespace Bonificacao.Web.Controllers
 
         // POST: Produtos/Delete/5
         [HttpPost]
-        //[ValidateAntiForgeryToken]
         public ActionResult Deletar(int id)
         {
             try
@@ -80,7 +79,7 @@ namespace Bonificacao.Web.Controllers
                 Context.Produtos.Remove(produto);
                 Context.SaveChanges();
 
-                return Content("Item deletado com sucesso");
+                return Content("Item removido com sucesso");
             }
             catch (Exception)
             {

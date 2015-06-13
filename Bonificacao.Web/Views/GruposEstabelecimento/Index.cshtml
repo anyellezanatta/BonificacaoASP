@@ -1,28 +1,39 @@
 ﻿@model IEnumerable<Bonificacao.Data.GrupoEstabelecimento>
 @{ ViewBag.Title = "Grupos de estabelecimento"; }
 
-@Html.Box("Lista de Grupos", "Aqui você pode gerenciar os grupos de estabelecimentos do sistema",
-    @<text>
-        <p>@Html.ActionLink("Cadastrar", "Cadastrar")</p>
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>@Html.DisplayNameFor(model => model.Nome)</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var it in Model)
-                    {
-                        <tr>
-                            <td>@Html.DisplayFor(modelItem => it.Nome)</td>
-                            <td>
-                                @Html.ActionLink("Editar", "Editar", new { id = it.Id }) | @Helpers.Delete("GruposEstabelecimento", "Deletar", it.Id)
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="ibox">
+            <div class="ibox-content">
+                <h2>Lista de grupos</h2>
+                <small>Aqui você pode gerenciar os grupos de estabelecimentos do sistema</small>
+                <div class="padding-top">
+                    <p>@Html.ActionLink("Cadastrar", "Cadastrar")</p>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(model => model.Nome)</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var it in Model)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => it.Nome)</td>
+                                        <td>
+                                            @Html.ActionLink("Editar", "Editar", new { id = it.Id }) | @Helpers.Delete("GruposEstabelecimento", "Deletar", it.Id)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-    </text>)
+    </div>
+</div>
+

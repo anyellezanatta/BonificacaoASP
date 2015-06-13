@@ -19,7 +19,7 @@ namespace Bonificacao.Web.Controllers
             var estabelecimentos = Context.Estabelecimentos.Include(e => e.GrupoEstabelecimento);
             return View(estabelecimentos.ToList());
         }
-        
+
         public ActionResult Cadastrar()
         {
             ViewBag.GrupoEstabelecimentoId = new SelectList(Context.GruposEstabelecimento, "Id", "Nome");
@@ -57,7 +57,7 @@ namespace Bonificacao.Web.Controllers
             return View(estabelecimento);
         }
 
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Editar([Bind(Include = "Id,Nome,GrupoEstabelecimentoId,DataCriacao,DataModificacao")] Estabelecimento estabelecimento)
@@ -72,30 +72,22 @@ namespace Bonificacao.Web.Controllers
             return View(estabelecimento);
         }
 
-        // GET: Estabelecimentos/Delete/5
-        public ActionResult Deletar(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Estabelecimento estabelecimento = Context.Estabelecimentos.Find(id);
-            if (estabelecimento == null)
-            {
-                return HttpNotFound();
-            }
-            return View(estabelecimento);
-        }
-
         // POST: Estabelecimentos/Delete/5
-        [HttpPost, ActionName("Deletar")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpPost]
+        public ActionResult Deletar(int id)
         {
-            Estabelecimento estabelecimento = Context.Estabelecimentos.Find(id);
-            Context.Estabelecimentos.Remove(estabelecimento);
-            Context.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                Estabelecimento estabelecimento = Context.Estabelecimentos.Find(id);
+                Context.Estabelecimentos.Remove(estabelecimento);
+                Context.SaveChanges();
+
+                return Content("Item removido com sucesso");
+            }
+            catch (Exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
     }
 }

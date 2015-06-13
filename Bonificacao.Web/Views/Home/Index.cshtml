@@ -3,77 +3,74 @@
 }
 
 <div class="row">
-    @if (Session["Tipo"] != null)
+    @switch ((Bonificacao.Data.TipoPessoa)ViewBag.TipoUsuario)
     {
-        switch ((Bonificacao.Data.TipoPessoa)Session["Tipo"])
-        {
-            case Bonificacao.Data.TipoPessoa.Cliente:
-                <text>
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="ibox">
-                                    <div class="ibox-content">
-                                        <h2>Indicar um amigo</h2>
-                                        <small>Nessa área você pode convidar seus amigos para abastecerem em algum posto e ainda ganhar bonus a cada litro abastecido</small>
-                                        @{Html.RenderAction("Indicar", "Indicacoes");}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="ibox">
-                                    <div class="ibox-content">
-                                        <h2>Minhas indicações</h2>
-                                        <small>Abaixo você encontra as pessoas que você já indicou</small>
-                                        @{Html.RenderAction("MinhasIndicacoes", "Indicacoes");}
-                                    </div>
+        case Bonificacao.Data.TipoPessoa.Cliente:
+            <text>
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-content">
+                                    <h2>Indicar um amigo</h2>
+                                    <small>Nessa área você pode convidar seus amigos para abastecerem em algum posto e ainda ganhar bonus a cada litro abastecido</small>
+                                    @{Html.RenderAction("Indicar", "Indicacoes");}
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="ibox">
-                                    <div class="ibox-content">
-                                        <h2>Visualizar movimentações</h2>
-                                        <small>Aqui você pode ver as movimentações do sistema, utilizando também filtros por data e cliente</small>
-                                        @{ Html.RenderAction("BuscaMovimentacao", "Movimentacao"); }
-                                        @{ Html.RenderAction("Lista", "Movimentacao"); }
-                                    </div>
+                        <div class="col-lg-6">
+                            <div class="ibox">
+                                <div class="ibox-content">
+                                    <h2>Minhas indicações</h2>
+                                    <small>Abaixo você encontra as pessoas que você já indicou</small>
+                                    @{Html.RenderAction("MinhasIndicacoes", "Indicacoes");}
                                 </div>
                             </div>
                         </div>
                     </div>
-                </text>
-                break;
-            case Bonificacao.Data.TipoPessoa.Administrador:
-                <text>
-                    <div class="col-lg-12">
-                        <div class="ibox">
-                            <div class="ibox-content">
-                                <h2>Visualizar movimentações</h2>
-                                <small>Aqui você pode ver as movimentações do sistema, utilizando também filtros por data e cliente</small>
-                                @{ Html.RenderAction("BuscaMovimentacao", "Movimentacao"); }
-                                @{ Html.RenderAction("Lista", "Movimentacao"); }
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox">
+                                <div class="ibox-content">
+                                    <h2>Visualizar movimentações</h2>
+                                    <small>Aqui você pode ver as movimentações do sistema, utilizando também filtros por data e cliente</small>
+                                    @{ Html.RenderAction("BuscaMovimentacao", "Movimentacao"); }
+                                    @{ Html.RenderAction("Lista", "Movimentacao"); }
+                                </div>
                             </div>
                         </div>
                     </div>
-                </text>
-                break;
-            @*case Bonificacao.Data.TipoPessoa.Vendedor:
-                <text>
-                    <div class="col-lg-12">
-                        <div class="ibox">
-                            <div class="ibox-content">
-                                <h2>Nova movimentação</h2>
-                                <small>Aqui você pode cadastrar novas movimentações para seus clientes</small>
-                                @{ Html.RenderAction("Cadastrar", "Movimentacao"); }
-                            </div>
+                </div>
+            </text>
+            break;
+        case Bonificacao.Data.TipoPessoa.Administrador:
+            <text>
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <h2>Visualizar movimentações</h2>
+                            <small>Aqui você pode ver as movimentações do sistema, utilizando também filtros por data e cliente</small>
+                            @{ Html.RenderAction("BuscaMovimentacao", "Movimentacao"); }
+                            @{ Html.RenderAction("Lista", "Movimentacao"); }
                         </div>
                     </div>
-                </text>
-                break;*@
-            default: break;
-        }
+                </div>
+            </text>
+            break;
+        @*case Bonificacao.Data.TipoPessoa.Vendedor:
+            <text>
+                <div class="col-lg-12">
+                    <div class="ibox">
+                        <div class="ibox-content">
+                            <h2>Nova movimentação</h2>
+                            <small>Aqui você pode cadastrar novas movimentações para seus clientes</small>
+                            @{ Html.RenderAction("Cadastrar", "Movimentacao"); }
+                        </div>
+                    </div>
+                </div>
+            </text>
+            break;*@
+        default: break;
     }
 </div>
 
