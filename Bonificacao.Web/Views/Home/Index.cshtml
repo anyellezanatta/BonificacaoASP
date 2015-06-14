@@ -26,6 +26,7 @@
                                     @{Html.RenderAction("MinhasIndicacoes", "Indicacoes");}
                                 </div>
                             </div>
+                            @{ Html.RenderAction("MeuSaldo", "Movimentacao"); }
                         </div>
                     </div>
                     <div class="row">
@@ -46,30 +47,57 @@
         case Bonificacao.Data.TipoPessoa.Administrador:
             <text>
                 <div class="col-lg-12">
-                    <div class="ibox">
-                        <div class="ibox-content">
-                            <h2>Visualizar movimentações</h2>
-                            <small>Aqui você pode ver as movimentações do sistema, utilizando também filtros por data e cliente</small>
-                            @{ Html.RenderAction("BuscaMovimentacao", "Movimentacao"); }
-                            @{ Html.RenderAction("Lista", "Movimentacao"); }
+                    <div class="row">
+
+                        <div class="col-lg-6">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <span class="label label-primary pull-right">Agora</span>
+                                    <h5>Vendas por estabelecimento</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            @{ Html.RenderAction("VendasEstabelecimento", "Estabelecimentos"); }
+                                            @*<h1 class="no-margins">@string.Format(new System.Globalization.CultureInfo("pt-BR"), "{0:c2}", Model)</h1>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <span class="label label-primary pull-right">Agora</span>
+                                    <h5>Bônus por estabelecimento</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            @{ Html.RenderAction("BonusEstabelecimento", "Estabelecimentos"); }
+                                            @*<h1 class="no-margins">@string.Format(new System.Globalization.CultureInfo("pt-BR"), "{0:c2}", Model)</h1>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="ibox">
+                                <div class="ibox-content">
+                                    <h2>Visualizar movimentações</h2>
+                                    <small>Aqui você pode ver as movimentações do sistema, utilizando também filtros por data e cliente</small>
+                                    @{ Html.RenderAction("BuscaMovimentacao", "Movimentacao"); }
+                                    @{ Html.RenderAction("Lista", "Movimentacao"); }
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </text>
             break;
-        @*case Bonificacao.Data.TipoPessoa.Vendedor:
-            <text>
-                <div class="col-lg-12">
-                    <div class="ibox">
-                        <div class="ibox-content">
-                            <h2>Nova movimentação</h2>
-                            <small>Aqui você pode cadastrar novas movimentações para seus clientes</small>
-                            @{ Html.RenderAction("Cadastrar", "Movimentacao"); }
-                        </div>
-                    </div>
-                </div>
-            </text>
-            break;*@
         default: break;
     }
 </div>

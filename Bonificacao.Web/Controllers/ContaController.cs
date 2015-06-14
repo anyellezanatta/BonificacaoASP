@@ -49,13 +49,20 @@ namespace Bonificacao.Web.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult DeletarUsuario(int id)
         {
-            Pessoa pessoa = Context.Pessoas.Find(id);
-            Context.Pessoas.Remove(pessoa);
-            Context.SaveChanges();
-            return RedirectToAction("Usuarios");
+            try
+            {
+                Pessoa pessoa = Context.Pessoas.Find(id);
+                Context.Pessoas.Remove(pessoa);
+                Context.SaveChanges();
+
+                return Content("Item removido com sucesso");
+            }
+            catch (Exception)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
+            }
         }
 
         public ActionResult Login()

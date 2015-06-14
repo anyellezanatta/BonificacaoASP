@@ -1,0 +1,23 @@
+﻿@model IEnumerable<Bonificacao.Web.Models.ValorEstabelecimento>
+
+@if (Model.Any())
+{
+    <ul class="list-group clear-list no-margins">
+        @{
+            int i = 0;
+            foreach (var item in Model)
+            {
+                i = i + 1;
+                <li class="list-group-item @((i == 1) ? "first-item" : "")">
+                    <span class="pull-right">@string.Format(new System.Globalization.CultureInfo("pt-BR"), "{0:c2}", item.Valor)</span>
+                    <span class="label label-primary">@i</span>
+                    @item.Nome
+                </li>
+            }
+        }
+    </ul>
+}
+else
+{ 
+    <h5>Ainda não há dados para exibir :(</h5>
+}

@@ -186,5 +186,17 @@ namespace Bonificacao.Web.Controllers
                 }
             }
         }
+
+        [ChildActionOnly]
+        public ActionResult MeuSaldo()
+        {
+            decimal saldo = 0;
+
+            var pessoa = GetUsuario();
+            if (pessoa != null)
+                saldo = pessoa.Movimentos.OrderByDescending(e => e.DataCriacao).Select(e => e.SaldoBonus).FirstOrDefault();
+
+            return PartialView(saldo);
+        }
     }
 }

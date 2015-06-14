@@ -17,7 +17,7 @@ namespace Bonificacao.Data
     public enum TipoMovimento
     {
         Venda = 1,
-        [Display(Name= "Recebimento de bônus")]
+        [Display(Name= "Bônus")]
         RecebimentoBonus = 2
     }
 

@@ -190,12 +190,71 @@ button {
 }
 
 .middle-box h1 {
-  font-size: 170px;
+    font-size: 170px;
 }
+
 .logo-name {
-  color: #e6e6e6;
-  font-size: 180px;
-  font-weight: 800;
-  letter-spacing: -10px;
-  margin-bottom: 0px;
+    color: #e6e6e6;
+    font-size: 180px;
+    font-weight: 800;
+    letter-spacing: -10px;
+    margin-bottom: 0px;
+}
+
+.list-group.clear-list .list-group-item {
+    border-top: 1px solid #e7eaec;
+    border-bottom: 0;
+    border-right: 0;
+    border-left: 0;
+    padding: 10px 0;
+}
+
+.list-group-item {
+    border: 1px solid #e7eaec;
+    display: block;
+    margin-bottom: -1px;
+    padding: 10px 15px;
+    position: relative;
+}
+
+.label {
+    color: #5e5e5e;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 3px 8px;
+    text-shadow: none;
+}
+
+.label-success .badge-success {
+    background-color: #1c84c6;
+    color: #FFFFFF !important;
+}
+
+.label-primary {
+    color: #FFFFFF;
+}
+
+.list-group-item span.label {
+    margin-right: 10px !important;
+}
+
+.list-group-item:first-child {
+    border-top: none !important;
+}
+
+.ibox-title .label {
+  margin-left: 4px;
+}
+
+.ibox-title h5 {
+  display: inline-block;
+  font-size: 14px;
+  margin: 0 0 7px;
+  padding: 0;
+  text-overflow: ellipsis;
+  float: left;
+}
+
+.no-margins {
+  margin: 0 !important;
 }

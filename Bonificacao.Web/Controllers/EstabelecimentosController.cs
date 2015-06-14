@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Bonificacao.Data;
+using Bonificacao.Web.Models;
 
 namespace Bonificacao.Web.Controllers
 {
@@ -88,6 +89,30 @@ namespace Bonificacao.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.InternalServerError);
             }
+        }
+
+        [ChildActionOnly]
+        public ActionResult BonusEstabelecimento()
+        {
+            var bonusEstabelecimentos = from estabelecimento in Context.Estabelecimentos
+                                        join movimento in Context.Movimentos on estabelecimento.Id equals movimento.EstabelecimentoId into joined
+                                        from leftJoined in joined.DefaultIfEmpty()
+                                        where leftJoined.TipoMovimento == TipoMovimento.RecebimentoBonus
+                                        group leftJoined by new { estabelecimento.Id, estabelecimento.Nome } into grouped
+                                        select new ValorEstabelecimento { Nome = grouped.Key.Nome, Valor = grouped.Sum(e => e.ValorBonus) };
+            return PartialView("ValorEstabelecimento", bonusEstabelecimentos.OrderByDescending(e => e.Valor).ToList());
+        }
+
+        [ChildActionOnly]
+        public ActionResult VendasEstabelecimento()
+        {
+            var vendasEstabelecimentos = from estabelecimento in Context.Estabelecimentos
+                                        join movimento in Context.Movimentos on estabelecimento.Id equals movimento.EstabelecimentoId into joined
+                                        from leftJoined in joined.DefaultIfEmpty()
+                                        where leftJoined.TipoMovimento == TipoMovimento.Venda
+                                        group leftJoined by new { estabelecimento.Id, estabelecimento.Nome } into grouped
+                                        select new ValorEstabelecimento { Nome = grouped.Key.Nome, Valor = grouped.Sum(e => e.ValorTotal) };
+            return PartialView("ValorEstabelecimento", vendasEstabelecimentos.OrderByDescending(e => e.Valor).ToList());
         }
     }
 }

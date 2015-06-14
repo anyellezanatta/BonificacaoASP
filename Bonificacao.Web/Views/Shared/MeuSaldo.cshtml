@@ -1,0 +1,15 @@
+﻿@model decimal
+
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <span class="label label-primary pull-right">Hoje</span>
+        <h5>Saldo de bônus</h5>
+    </div>
+    <div class="ibox-content">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="no-margins">@string.Format(new System.Globalization.CultureInfo("pt-BR"), "{0:c2}", Model)</h1>
+            </div>
+        </div>
+    </div>
+</div>
