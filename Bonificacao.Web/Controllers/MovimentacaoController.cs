@@ -24,9 +24,9 @@ namespace Bonificacao.Web.Controllers
                 opcoesClientes = opcoesClientes.Where(e => e.Id == usuario.Id);
             var clientesList = opcoesClientes.OrderBy(e => e.Nome).ToList();
 
-            return PartialView("BuscaMovimentacao", 
-                new BuscaMovimentacaoViewModel() 
-                { 
+            return PartialView("BuscaMovimentacao",
+                new BuscaMovimentacaoViewModel()
+                {
                     DataInicio = DateTime.Now.AddMonths(-1).ToString("dd/MM/yyyy"),
                     DataFim = DateTime.Now.ToString("dd/MM/yyyy"),
                     OpcoesClientes = new SelectList(clientesList, "Id", "Nome")
@@ -197,6 +197,47 @@ namespace Bonificacao.Web.Controllers
                 saldo = pessoa.Movimentos.OrderByDescending(e => e.DataCriacao).Select(e => e.SaldoBonus).FirstOrDefault();
 
             return PartialView(saldo);
+        }
+
+
+        [Route("movimentacao/{id}/bonus")]
+        public ActionResult Bonus(int id)
+        {
+            decimal saldo = 0;
+
+            var pessoa = Context.Pessoas.Find(id);       
+            if (pessoa != null)
+            {
+                saldo = pessoa.Movimentos.OrderByDescending(e => e.DataCriacao).Select(e => e.SaldoBonus).FirstOrDefault();
+                return Json(string.Format("{0:c2}", saldo), JsonRequestBehavior.AllowGet);
+            }
+            return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+        }
+
+        [Route("movimentacao/valorpagar")]
+        public ActionResult ValorPagar(int clienteId, int produtoId, decimal quantidade)
+        {
+            var produto = Context.Produtos.Find(produtoId);
+            if (produto == null)
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+
+            decimal valorPagar = 0;
+
+            decimal valorSaldoBonusCliente = 0;
+            var ultimaMovimentacaoCliente = Context.Movimentos
+                .Where(e => e.ClienteId == clienteId)
+                .OrderByDescending(e => e.DataCriacao)
+                .FirstOrDefault();
+
+            if (ultimaMovimentacaoCliente != null)
+                valorSaldoBonusCliente = ultimaMovimentacaoCliente.SaldoBonus;
+
+            decimal valorTotal = quantidade * produto.Preco;
+            if (valorSaldoBonusCliente <= valorTotal)
+            {
+                valorPagar = valorTotal - valorSaldoBonusCliente;
+            }
+            return Json(string.Format("{0:c2}", valorPagar), JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -258,3 +258,7 @@ button {
 .no-margins {
   margin: 0 !important;
 }
+
+.form-group h3 {
+    max-width: 300px;
+}

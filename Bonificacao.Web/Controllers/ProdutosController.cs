@@ -93,5 +93,14 @@ namespace Bonificacao.Web.Controllers
         {
             return View();
         }
+
+        [Route("produtos/{id}/preco")]
+        public ActionResult Preco(int id)
+        {
+            var produto = Context.Produtos.Find(id);
+            if (produto != null)
+                return Json(string.Format("{0:c2}", produto.Preco), JsonRequestBehavior.AllowGet);
+            return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+        }
     }
 }
